@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garima Dhasmana — Marketing Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">GD</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="GARIMA_DHASMANA_CV.pdf" class="nav-cta" download>Download CV</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <!-- Animated background canvas -->
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <div class="hero-content">
+      <!-- Sticker slot top-left -->
+      <div class="sticker sticker-hero-tl" id="sticker-hero-tl">
+        <img src="images/sticker-hero-tl.png" alt="" class="sticker-img" />
+      </div>
+
+      <div class="hero-eyebrow">Marketing Specialist · Paris & India</div>
+      <h1 class="hero-name">
+        <span class="hero-name-first">Garima</span>
+        <span class="hero-name-last">Dhasmana</span>
+      </h1>
+      <p class="hero-tagline">Brand Storyteller · FMCG · Global Campaigns</p>
+
+      <!-- Profile photo -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-tape hero-tape-l"></div>
+        <div class="hero-photo-tape hero-tape-r"></div>
+        <img
+          src="images/profile-photo.jpg"
+          alt="Garima Dhasmana"
+          class="hero-photo"
+          onerror="this.style.background='#8B1A1A';this.removeAttribute('src')"
+        />
+      </div>
+
+      <div class="hero-badges">
+        <span class="badge">3 Yrs Experience</span>
+        <span class="badge">FMCG · Aviation · Luxury · Tech</span>
+        <span class="badge">Open to CDI/CDD · June 2026</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#experience" class="btn-primary">See My Work</a>
+        <a href="https://calendly.com" target="_blank" class="btn-ghost">Book a Meeting</a>
+      </div>
+    </div>
+
+    <!-- Impact strip -->
+    <div class="impact-strip">
+      <div class="impact-item fade-in-up">
+        <span class="impact-num">40+</span>
+        <span class="impact-label">Countries Coordinated</span>
+      </div>
+      <div class="impact-divider"></div>
+      <div class="impact-item fade-in-up" style="animation-delay:.12s">
+        <span class="impact-num">900K+</span>
+        <span class="impact-label">Social Audience Managed</span>
+      </div>
+      <div class="impact-divider"></div>
+      <div class="impact-item fade-in-up" style="animation-delay:.24s">
+        <span class="impact-num">80%</span>
+        <span class="impact-label">Product Adoption in Month 1</span>
+      </div>
+      <div class="impact-divider"></div>
+      <div class="impact-item fade-in-up" style="animation-delay:.36s">
+        <span class="impact-num">30%</span>
+        <span class="impact-label">SEO Traffic Boost</span>
+      </div>
+      <div class="impact-divider"></div>
+      <div class="impact-item fade-in-up" style="animation-delay:.48s">
+        <span class="impact-num">#1</span>
+        <span class="impact-label">P&G Challenge · 142 Teams</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT ME
+  ============================================================ -->
+  <section class="section about-section" id="about">
+    <div class="container about-grid">
+      <div class="about-visual">
+        <div class="polaroid">
+          <div class="polaroid-tape"></div>
+          <img
+            src="images/about-photo.jpg"
+            alt="Garima"
+            class="polaroid-img"
+            onerror="this.style.background='#D4A5A5';this.removeAttribute('src')"
+          />
+          <div class="polaroid-caption">Paris, France ✨</div>
+        </div>
+        <!-- Sticker slot -->
+        <div class="sticker sticker-about" id="sticker-about">
+          <img src="images/sticker-about.png" alt="" class="sticker-img" />
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-eyebrow">Who I Am</div>
+        <h2 class="section-title">About <em>Me</em></h2>
+        <p class="about-lead">
+          Chemistry grad turned brand strategist — yes, science girly who can read a data model
+          <em>and</em> write a campaign brief that actually lands.
+        </p>
+        <p>
+          After three years across Danone, Safran, and Dassault Systèmes, I've learned that the
+          best marketing lives at the intersection of rigorous insight and genuine storytelling.
+          I care deeply about the <em>why</em> behind a brand, not just the what.
+        </p>
+        <p>
+          When I'm not coordinating global campaigns across 40+ countries, you'll find me running
+          my Etsy shop, curating my Pinterest boards, cooking something nutritious and beautiful,
+          or deep in a theatre rehearsal. Creativity isn't a switch I turn off.
+        </p>
+        <p>
+          Currently based in Paris, seeking a CDI/CDD role in FMCG or luxury — where brand
+          purpose meets consumer reality.
+        </p>
+        <div class="about-langs">
+          <span class="lang-pill">🇬🇧 English — Advanced</span>
+          <span class="lang-pill">🇫🇷 French — Intermediate</span>
+          <span class="lang-pill">🇮🇳 Hindi — Native</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTORS
+  ============================================================ -->
+  <section class="section sectors-section" id="sectors">
+    <div class="container">
+      <div class="section-eyebrow reveal">Industries I Know</div>
+      <h2 class="section-title reveal">Sector <em>Expertise</em></h2>
+      <div class="sectors-grid">
+        <div class="sector-btn reveal" style="animation-delay:.0s">
+          <div class="sector-icon">🛒</div>
+          <div class="sector-name">FMCG</div>
+          <div class="sector-loc">France · India</div>
+        </div>
+        <div class="sector-btn reveal" style="animation-delay:.08s">
+          <div class="sector-icon">✈️</div>
+          <div class="sector-name">Aviation &amp; Aerospace</div>
+          <div class="sector-loc">France</div>
+        </div>
+        <div class="sector-btn reveal" style="animation-delay:.16s">
+          <div class="sector-icon">💎</div>
+          <div class="sector-name">Luxury &amp; Fashion</div>
+          <div class="sector-loc">France</div>
+        </div>
+        <div class="sector-btn reveal" style="animation-delay:.24s">
+          <div class="sector-icon">💻</div>
+          <div class="sector-name">B2B Tech &amp; SaaS</div>
+          <div class="sector-loc">France</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORK EXPERIENCE — 3-TAB
+  ============================================================ -->
+  <section class="section experience-section" id="experience">
+    <div class="container">
+      <div class="section-eyebrow reveal">Where I've Worked</div>
+      <h2 class="section-title reveal">Work <em>Experience</em></h2>
+
+      <!-- Tab navigation -->
+      <div class="exp-tabs">
+        <button class="exp-tab active" data-tab="danone">
+          <img src="images/logo-danone.png" alt="Danone" class="tab-logo"
+            onerror="this.style.display='none'" />
+          <span>Danone</span>
+        </button>
+        <button class="exp-tab" data-tab="safran">
+          <img src="images/logo-safran.png" alt="Safran" class="tab-logo"
+            onerror="this.style.display='none'" />
+          <span>Safran</span>
+        </button>
+        <button class="exp-tab" data-tab="dassault">
+          <img src="images/logo-dassault.png" alt="Dassault Systèmes" class="tab-logo"
+            onerror="this.style.display='none'" />
+          <span>Dassault Systèmes</span>
+        </button>
+      </div>
+
+      <!-- Tab panels -->
+      <div class="exp-panels">
+
+        <!-- Danone -->
+        <div class="exp-panel active" id="panel-danone">
+          <div class="exp-panel-inner">
+            <div class="exp-media">
+              <!-- Replace with YouTube embed or company video -->
+              <div class="exp-media-placeholder">
+                <img src="images/logo-danone.png" alt="Danone" class="exp-company-logo"
+                  onerror="this.style.display='none'" />
+                <div class="exp-media-label">Danone</div>
+                <!-- Swap for: <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe> -->
+              </div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-role">Global Communications &amp; Project Manager</div>
+                  <div class="exp-meta">Danone · Paris, France · May 2025 – Nov 2025</div>
+                </div>
+                <div class="exp-skills-used">
+                  <span class="skill-tag">Stakeholder Mgmt</span>
+                  <span class="skill-tag">Data Analysis</span>
+                  <span class="skill-tag">Storytelling</span>
+                  <span class="skill-tag">Power BI</span>
+                </div>
+              </div>
+              <p class="exp-summary">
+                Led global communications and human rights reporting at one of the world's largest
+                FMCG companies — coordinating a 40-country network and building data-driven
+                dashboards that fed directly into C-suite decisions.
+              </p>
+              <div class="exp-metrics">
+                <div class="metric">
+                  <span class="metric-num">40+</span>
+                  <span class="metric-label">Countries Coordinated</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">10+</span>
+                  <span class="metric-label">Human Rights Reports Delivered</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">1,000+</span>
+                  <span class="metric-label">Employees Engaged Globally</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">100%</span>
+                  <span class="metric-label">Data Coverage Achieved</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Delivered 10+ human rights reports &amp; dashboards for senior leadership and external stakeholders</li>
+                <li>Extracted and visualized global workforce data using Power BI and Excel into executive-ready decks</li>
+                <li>Created high-impact digital assets (videos, infographics, toolkits) adopted by 40+ markets</li>
+                <li>Led end-to-end global Awards programme, coordinating HR, Finance, IT &amp; Corporate Comms</li>
+                <li>Animated global internal communities, driving engagement among 1,000+ employees</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Safran -->
+        <div class="exp-panel" id="panel-safran">
+          <div class="exp-panel-inner">
+            <div class="exp-media">
+              <div class="exp-media-placeholder">
+                <img src="images/logo-safran.png" alt="Safran" class="exp-company-logo"
+                  onerror="this.style.display='none'" />
+                <div class="exp-media-label">Safran</div>
+              </div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-role">Product Marketing Specialist</div>
+                  <div class="exp-meta">Safran · Paris, France · May 2024 – Aug 2024</div>
+                </div>
+                <div class="exp-skills-used">
+                  <span class="skill-tag">Product Marketing</span>
+                  <span class="skill-tag">GTM Strategy</span>
+                  <span class="skill-tag">UX Copywriting</span>
+                  <span class="skill-tag">Event Management</span>
+                </div>
+              </div>
+              <p class="exp-summary">
+                Owned the go-to-market strategy and user adoption campaign for a new internal
+                infrastructure portal — taking it from launch to 80% adoption in a single month
+                through targeted messaging, UX improvements, and stakeholder events.
+              </p>
+              <div class="exp-metrics">
+                <div class="metric">
+                  <span class="metric-num">80%</span>
+                  <span class="metric-label">Product Adoption — Month 1</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">35%</span>
+                  <span class="metric-label">Reduction in Data Retrieval Time</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">200+</span>
+                  <span class="metric-label">Professionals at Stakeholder Events</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">85%</span>
+                  <span class="metric-label">Event Satisfaction Rate</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Led GTM and user adoption strategy for internal portal improving cross-department collaboration</li>
+                <li>Drove product adoption to 80% in the first month via content, UX improvements &amp; user messaging</li>
+                <li>Developed and implemented crisis communication strategies with 100% resolution rate</li>
+                <li>Organised promotional events for 200+ industry professionals (85% satisfaction)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dassault Systèmes -->
+        <div class="exp-panel" id="panel-dassault">
+          <div class="exp-panel-inner">
+            <div class="exp-media">
+              <div class="exp-media-placeholder">
+                <img src="images/logo-dassault.png" alt="Dassault Systèmes" class="exp-company-logo"
+                  onerror="this.style.display='none'" />
+                <div class="exp-media-label">Dassault Systèmes</div>
+              </div>
+            </div>
+            <div class="exp-content">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-role">Marketing &amp; Brand Communications Specialist</div>
+                  <div class="exp-meta">Dassault Systèmes · Vélizy-Villacoublay · Nov 2023 – Apr 2024</div>
+                </div>
+                <div class="exp-skills-used">
+                  <span class="skill-tag">B2B Campaigns</span>
+                  <span class="skill-tag">Social Media</span>
+                  <span class="skill-tag">SEO</span>
+                  <span class="skill-tag">Meta Ads</span>
+                  <span class="skill-tag">Sprinklr</span>
+                </div>
+              </div>
+              <p class="exp-summary">
+                Created digital campaigns for Airbus and BMW, managed a 900K+ social audience,
+                and drove a 30% SEO boost — all while producing 360° content across video,
+                white papers, and paid channels.
+              </p>
+              <div class="exp-metrics">
+                <div class="metric">
+                  <span class="metric-num">900K+</span>
+                  <span class="metric-label">Social Audience Managed</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">+30%</span>
+                  <span class="metric-label">SEO Traffic Growth</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">+25%</span>
+                  <span class="metric-label">Operational Efficiency Gain</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-num">6+</span>
+                  <span class="metric-label">Departments Partnered</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Created B2B digital campaigns for Airbus, Boeing, and BMW across social, newsletters, and blogs</li>
+                <li>Produced 360° campaigns — videos, tutorials, white papers, toolkits — aligned with brand goals</li>
+                <li>Supported paid content strategy using Meta Ads Manager and Sprinklr</li>
+                <li>Optimised SEO, boosting web traffic by 30% and improving performance across channels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /exp-panels -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SKILLS
+  ============================================================ -->
+  <section class="section skills-section" id="skills">
+    <div class="container">
+      <div class="section-eyebrow reveal">What I Bring</div>
+      <h2 class="section-title reveal">Core <em>Skills</em></h2>
+      <div class="skills-grid">
+
+        <div class="skill-card reveal" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">📣</div>
+            <div class="skill-name">Strategic Communication</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Led communications for 1,000+ employees across 40+ countries at Danone —
+              building executive dashboards and stakeholder narratives for global human rights
+              reporting.
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="animation-delay:.08s" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">🎬</div>
+            <div class="skill-name">Content Creation &amp; Storytelling</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Produced 360° content — videos, white papers, toolkits, infographics — for
+              Airbus, BMW, and Boeing at Dassault Systèmes. Adopted by 40+ global markets.
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="animation-delay:.16s" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">📊</div>
+            <div class="skill-name">Digital Marketing &amp; Campaign Execution</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Managed paid + organic strategy via Meta Ads Manager &amp; Sprinklr for a 900K+
+              social audience. SEO optimisation drove a 30% traffic uplift at Dassault.
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="animation-delay:.0s" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">🌍</div>
+            <div class="skill-name">Stakeholder Management</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Coordinated a network of 40+ countries for Danone's global data programme —
+              aligning HR, Finance, IT, and Corporate Comms with zero gaps in coverage.
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="animation-delay:.08s" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">📈</div>
+            <div class="skill-name">Data Analysis &amp; Performance Tracking</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Transformed complex global workforce datasets into Power BI and Excel dashboards
+              used by Danone's C-suite for ESG and human rights decision-making.
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" style="animation-delay:.16s" tabindex="0">
+          <div class="skill-front">
+            <div class="skill-icon">🗂️</div>
+            <div class="skill-name">Project Coordination</div>
+          </div>
+          <div class="skill-back">
+            <div class="skill-example">
+              Delivered Safran's internal portal GTM from zero to 80% adoption in 30 days —
+              coordinating UX, content, and training simultaneously across departments.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTERESTS
+  ============================================================ -->
+  <section class="section interests-section" id="interests">
+    <div class="container">
+      <div class="section-eyebrow reveal">Beyond Work</div>
+      <h2 class="section-title reveal">What <em>Drives Me</em></h2>
+      <div class="interests-grid">
+
+        <div class="interest-tile reveal" tabindex="0">
+          <div class="interest-icon">🎭</div>
+          <div class="interest-name">Theatre</div>
+          <div class="interest-text">
+            Trained actor and performance lover — theatre taught me to read a room,
+            command attention, and tell stories that move people.
+          </div>
+          <!-- Replace with image/video: <img src="images/interest-theatre.jpg" alt="Theatre" /> -->
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.07s" tabindex="0">
+          <div class="interest-icon">🥗</div>
+          <div class="interest-name">Nutritious Cooking</div>
+          <div class="interest-text">
+            Food is science and art. I geek out over macros, fermentation,
+            and making healthy food genuinely beautiful.
+          </div>
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.14s" tabindex="0">
+          <div class="interest-icon">🍜</div>
+          <div class="interest-name">Culinary Explorer</div>
+          <div class="interest-text">
+            Certified foodie. From Parisian bistros to Delhi street food —
+            I eat with curiosity and document with joy.
+          </div>
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.21s" tabindex="0">
+          <div class="interest-icon">💃</div>
+          <div class="interest-name">Dance</div>
+          <div class="interest-text">
+            Classical Indian + contemporary. Dance is how I process ideas
+            and reconnect with creativity when work gets heavy.
+          </div>
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.28s" tabindex="0">
+          <div class="interest-icon">🧘</div>
+          <div class="interest-name">Yoga &amp; Pilates</div>
+          <div class="interest-text">
+            Daily practice. Strength, stillness, and the discipline to show
+            up — on the mat and in the office.
+          </div>
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.35s" tabindex="0">
+          <div class="interest-icon">💪</div>
+          <div class="interest-name">Health &amp; Wellness</div>
+          <div class="interest-text">
+            Holistic wellbeing advocate — sleep, nutrition, movement, and
+            mental clarity are non-negotiables for peak performance.
+          </div>
+        </div>
+
+        <div class="interest-tile reveal" style="animation-delay:.42s" tabindex="0">
+          <div class="interest-icon">🌏</div>
+          <div class="interest-name">Geopolitics</div>
+          <div class="interest-text">
+            Obsessed with global power dynamics, trade policy, and how
+            macro trends shape the brands and markets I work in.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS — AI CREATIVES
+  ============================================================ -->
+  <section class="section projects-section" id="projects">
+    <div class="container">
+      <div class="section-eyebrow reveal">Creative Work</div>
+      <h2 class="section-title reveal">AI <em>Creatives</em></h2>
+      <p class="section-intro reveal">
+        A selection of AI-generated brand creatives, motion concepts, and visual campaigns
+        built using Midjourney, Claude, and the Adobe suite.
+      </p>
+      <a href="ai-creatives.html" class="btn-primary reveal">View Full Gallery →</a>
+
+      <!-- Preview strip -->
+      <div class="creatives-preview reveal">
+        <div class="creative-thumb">
+          <img src="images/ai-creative-1.jpg" alt="AI Creative 1"
+            onerror="this.style.background='#8B1A1A';this.removeAttribute('src')" />
+        </div>
+        <div class="creative-thumb">
+          <img src="images/ai-creative-2.jpg" alt="AI Creative 2"
+            onerror="this.style.background='#C9A84C';this.removeAttribute('src')" />
+        </div>
+        <div class="creative-thumb">
+          <img src="images/ai-creative-3.jpg" alt="AI Creative 3"
+            onerror="this.style.background='#D4A5A5';this.removeAttribute('src')" />
+        </div>
+        <div class="creative-thumb">
+          <img src="images/ai-creative-4.jpg" alt="AI Creative 4"
+            onerror="this.style.background='#1C1C1C';this.removeAttribute('src')" />
+        </div>
+        <div class="creative-thumb">
+          <img src="images/ai-creative-5.jpg" alt="AI Creative 5"
+            onerror="this.style.background='#8B1A1A';this.removeAttribute('src')" />
+        </div>
+        <div class="creative-thumb">
+          <img src="images/ai-creative-6.jpg" alt="AI Creative 6"
+            onerror="this.style.background='#D4A5A5';this.removeAttribute('src')" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COLLEGE PROJECTS / DECKS
+  ============================================================ -->
+  <section class="section decks-section" id="decks">
+    <div class="container">
+      <div class="section-eyebrow reveal">Academic Work</div>
+      <h2 class="section-title reveal">Case Studies &amp; <em>Decks</em></h2>
+      <p class="section-intro reveal">
+        Business challenge presentations and strategic marketing decks from EDHEC — built for
+        LVMH, P&amp;G, and more.
+      </p>
+      <div class="decks-grid">
+        <!-- Deck 1 — replace src with your Google Slides / Canva embed URL -->
+        <div class="deck-card reveal">
+          <div class="deck-label">LVMH Rental Prototype · 2023</div>
+          <div class="deck-embed-wrap">
+            <iframe
+              src="https://docs.google.com/presentation/d/YOUR_DECK_ID/embed?start=false&loop=false&delayms=3000"
+              frameborder="0"
+              allowfullscreen
+              class="deck-iframe"
+              title="LVMH Deck"
+            ></iframe>
+            <!-- Placeholder shown until you add the real link -->
+            <div class="deck-placeholder">
+              <span>📄</span>
+              <p>Replace the iframe src with your Google Slides embed link</p>
+            </div>
+          </div>
+        </div>
+        <!-- Deck 2 -->
+        <div class="deck-card reveal" style="animation-delay:.1s">
+          <div class="deck-label">P&amp;G La Recette · #1 / 142 Teams · 2023</div>
+          <div class="deck-embed-wrap">
+            <iframe
+              src="https://docs.google.com/presentation/d/YOUR_DECK_ID_2/embed?start=false&loop=false&delayms=3000"
+              frameborder="0"
+              allowfullscreen
+              class="deck-iframe"
+              title="P&G Deck"
+            ></iframe>
+            <div class="deck-placeholder">
+              <span>📄</span>
+              <p>Replace the iframe src with your Google Slides embed link</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PINTEREST + ETSY
+  ============================================================ -->
+  <section class="section shop-section" id="shop">
+    <div class="container">
+      <div class="section-eyebrow reveal">Side Projects</div>
+      <h2 class="section-title reveal">Creative <em>Ventures</em></h2>
+      <div class="shop-grid">
+        <a href="https://www.pinterest.com/YOUR_HANDLE" target="_blank" class="shop-card reveal">
+          <div class="shop-icon">📌</div>
+          <div class="shop-name">Pinterest</div>
+          <div class="shop-desc">
+            Curated mood boards, aesthetic inspiration, and visual storytelling — my eye for
+            brand curation, on one scroll.
+          </div>
+          <div class="shop-cta">Explore Board →</div>
+        </a>
+        <a href="https://www.etsy.com/shop/YOUR_SHOP" target="_blank" class="shop-card reveal" style="animation-delay:.1s">
+          <div class="shop-icon">🛍️</div>
+          <div class="shop-name">Etsy Shop</div>
+          <div class="shop-desc">
+            Digital products I design and sell — print posters, journal covers, and aesthetic
+            stationery for the organised creative.
+          </div>
+          <div class="shop-cta">Visit Shop →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CAREER TIMELINE
+  ============================================================ -->
+  <section class="section timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-eyebrow reveal">The Journey</div>
+      <h2 class="section-title reveal">Career <em>Timeline</em></h2>
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-year">2017</div>
+          <div class="tl-body">
+            <div class="tl-title">BSc Chemistry — University of Delhi</div>
+            <ul>
+              <li>Built analytical foundations — research, data, systems thinking</li>
+              <li>Discovered a love for storytelling through theatre and content</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal" style="animation-delay:.08s">
+          <div class="tl-year">2021</div>
+          <div class="tl-body">
+            <div class="tl-title">First Marketing Roles — Delhi</div>
+            <ul>
+              <li>Social media internship — grew Instagram engagement by 3.6%</li>
+              <li>Account Coordinator at Acro Service Corp — B2B enterprise operations</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal" style="animation-delay:.16s">
+          <div class="tl-year">2022</div>
+          <div class="tl-body">
+            <div class="tl-title">EDHEC Business School — France</div>
+            <ul>
+              <li>MIM + MSc Marketing Management at a top European Grande École</li>
+              <li>Case challenges: #1 out of 142 teams for P&amp;G · LVMH brand strategy</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal" style="animation-delay:.24s">
+          <div class="tl-year">2023</div>
+          <div class="tl-body">
+            <div class="tl-title">Dassault Systèmes — B2B Campaigns</div>
+            <ul>
+              <li>360° digital campaigns for Airbus, Boeing &amp; BMW</li>
+              <li>SEO +30% · 900K+ social audience</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal" style="animation-delay:.32s">
+          <div class="tl-year">2024</div>
+          <div class="tl-body">
+            <div class="tl-title">Safran — Product Marketing</div>
+            <ul>
+              <li>GTM strategy for internal portal · 80% adoption in month 1</li>
+              <li>Crisis comms · 200+ stakeholder event management</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal" style="animation-delay:.40s">
+          <div class="tl-year">2025</div>
+          <div class="tl-body">
+            <div class="tl-title">Danone — Global Comms &amp; Human Rights</div>
+            <ul>
+              <li>40+ country network · ESG reporting · C-suite dashboards</li>
+              <li>1,000+ employee global engagement programme</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal tl-now" style="animation-delay:.48s">
+          <div class="tl-year">Now</div>
+          <div class="tl-body">
+            <div class="tl-title">Open to CDI / CDD · Paris Region</div>
+            <ul>
+              <li>Seeking full-time role in FMCG, luxury, or global brand marketing</li>
+              <li>Ready to build, grow, and create impact from day one</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /timeline -->
+
+      <div class="resume-cta reveal">
+        <a href="GARIMA_DHASMANA_CV.pdf" class="btn-primary btn-large" download>
+          ⬇ Download My CV
+        </a>
+        <a href="https://calendly.com" target="_blank" class="btn-ghost btn-large">
+          📅 Book a Meeting
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTERACTIVE TOOLS — PLACEHOLDER
+  ============================================================ -->
+  <section class="section tools-section" id="tools">
+    <div class="container">
+      <div class="section-eyebrow reveal">Built with Claude</div>
+      <h2 class="section-title reveal">Interactive <em>Applets</em></h2>
+      <p class="section-intro reveal">
+        Fun, functional mini-tools I build with AI. Food-themed, nutrition-curious, always visual.
+      </p>
+      <div class="tools-grid">
+        <div class="tool-card reveal">
+          <div class="tool-icon">🥑</div>
+          <div class="tool-name">Nutrient Tracker</div>
+          <div class="tool-desc">A visual food macro tracker — log a meal, see your day at a glance.</div>
+          <div class="tool-status">Coming Soon</div>
+          <!-- When ready: <a href="applets/nutrient-tracker.html" class="btn-ghost">Try It</a> -->
+        </div>
+        <div class="tool-card reveal" style="animation-delay:.08s">
+          <div class="tool-icon">🌍</div>
+          <div class="tool-name">Flavour Map</div>
+          <div class="tool-desc">Interactive world map — pin cuisines you've tasted and ones on your list.</div>
+          <div class="tool-status">Coming Soon</div>
+        </div>
+        <div class="tool-card reveal" style="animation-delay:.16s">
+          <div class="tool-icon">🧪</div>
+          <div class="tool-name">Recipe Scientist</div>
+          <div class="tool-desc">The chemistry behind cooking — why does bread rise? Why does caramel work? Visual explainers.</div>
+          <div class="tool-status">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT + FOOTER
+  ============================================================ -->
+  <footer class="footer" id="contact">
+    <div class="footer-sticker" id="sticker-footer">
+      <img src="images/sticker-footer.png" alt="" class="sticker-img" />
+    </div>
+
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-text reveal">
+          <h2 class="footer-heading">Let's build something <em>great.</em></h2>
+          <p>Looking for a CDI/CDD in the Paris region — open, curious, and ready from June 2026.</p>
+        </div>
+        <div class="footer-contact reveal">
+          <a href="mailto:garima.dhasmana04@gmail.com" class="contact-row">
+            <span class="contact-icon">✉️</span>
+            garima.dhasmana04@gmail.com
+          </a>
+          <a href="tel:+33769417570" class="contact-row">
+            <span class="contact-icon">📞</span>
+            +33 7 69 41 75 70
+          </a>
+          <a href="https://linkedin.com/in/garimadhasmana" target="_blank" class="contact-row">
+            <span class="contact-icon">💼</span>
+            linkedin.com/in/garimadhasmana
+          </a>
+          <a href="https://www.etsy.com/shop/YOUR_SHOP" target="_blank" class="contact-row">
+            <span class="contact-icon">🛍️</span>
+            Etsy Shop
+          </a>
+          <a href="https://www.pinterest.com/YOUR_HANDLE" target="_blank" class="contact-row">
+            <span class="contact-icon">📌</span>
+            Pinterest
+          </a>
+        </div>
+      </div>
+
+      <!-- Closing gif slot -->
+      <div class="footer-gif">
+        <img src="images/footer-gif.gif" alt="" id="footer-gif"
+          onerror="this.style.display='none'" />
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-logo">Garima Dhasmana</div>
+        <div class="footer-copy">© 2025 · Made with ♥ &amp; Claude</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
