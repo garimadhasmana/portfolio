@@ -9,289 +9,300 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    body { background: var(--charcoal); }
+
+    .gallery-page {
+      display: flex; min-height: 100dvh;
+    }
+    /* Thin sidebar on gallery page */
+    .gallery-sidebar {
+      width: 200px; flex-shrink: 0;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      background: rgba(10,10,10,.9);
+      border-right: 1px solid rgba(255,255,255,.06);
+      display: flex; flex-direction: column;
+      padding: 2rem 1.2rem; gap: 1.5rem; z-index: 50;
+    }
+    .gallery-sidebar-logo {
+      font-family: var(--font-display); font-size: 1.1rem;
+      font-weight: 700; color: var(--crimson);
+    }
+    .gallery-sidebar-nav { display: flex; flex-direction: column; gap: .3rem; }
+    .gallery-sidebar-nav a {
+      font-size: .78rem; color: rgba(255,255,255,.35);
+      padding: .4rem .6rem; border-radius: 3px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .gallery-sidebar-nav a:hover { color: var(--white); background: rgba(255,255,255,.05); }
+    .gallery-back-link {
+      margin-top: auto; font-size: .75rem; font-weight: 600;
+      color: var(--rose); letter-spacing: .06em;
+    }
+    .gallery-back-link:hover { color: var(--white); }
+
+    .gallery-main {
+      margin-left: 200px; flex: 1; padding: 0;
+    }
+
+    /* Hero */
     .gallery-hero {
-      background: var(--charcoal);
-      padding: 7rem clamp(1.5rem,5vw,3rem) 4rem;
-      text-align: center;
+      padding: 5rem 4rem 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .gallery-hero-eyebrow {
+      font-size: .7rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--crimson); margin-bottom: .7rem;
     }
     .gallery-hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-size: clamp(2.2rem, 6vw, 5rem);
       font-weight: 900; color: var(--white); line-height: 1.05;
+      margin-bottom: .8rem;
     }
     .gallery-hero h1 em { color: var(--crimson); font-style: italic; }
     .gallery-hero p {
-      margin: 1.2rem auto 0; max-width: 540px;
-      font-size: 1rem; color: rgba(255,255,255,.55); line-height: 1.7;
+      font-size: .95rem; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 480px;
     }
-    .gallery-back {
-      display: inline-flex; align-items: center; gap: .4rem;
-      margin-bottom: 1.5rem; font-size: .8rem; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--rose);
-      transition: color var(--transition);
-    }
-    .gallery-back:hover { color: var(--white); }
 
-    .gallery-section {
-      padding: 4rem clamp(1.5rem,5vw,3rem) 0;
-      max-width: var(--max-w); margin: 0 auto;
+    /* Campaign block */
+    .campaign {
+      padding: 3.5rem 4rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .gallery-section-label {
-      font-size: .72rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--crimson);
-      margin-bottom: .5rem;
+    .campaign-meta {
+      display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem;
     }
-    .gallery-section-title {
-      font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-weight: 700; color: var(--charcoal); margin-bottom: 1.5rem;
+    .campaign-num {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 900;
+      color: rgba(139,26,26,.3); line-height: 1;
     }
-    .gallery-section-title em { font-style: italic; color: var(--crimson); }
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem; margin-bottom: 4rem;
+    .campaign-title {
+      font-family: var(--font-display); font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 700; color: var(--white); line-height: 1.1;
     }
-    .gallery-item {
-      position: relative; border-radius: var(--radius-md);
-      overflow: hidden; aspect-ratio: 4/5; background: var(--charcoal);
-      cursor: pointer;
+    .campaign-title em { color: var(--rose); font-style: italic; }
+
+    .campaign-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
     }
-    .gallery-item img,
-    .gallery-item video {
+    .campaign-item {
+      aspect-ratio: 4/5; border-radius: 8px; overflow: hidden;
+      background: rgba(255,255,255,.04); position: relative; cursor: pointer;
+    }
+    .campaign-item img,
+    .campaign-item video {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform .5s ease;
     }
-    .gallery-item:hover img,
-    .gallery-item:hover video { transform: scale(1.06); }
-    .gallery-item-overlay {
+    .campaign-item:hover img,
+    .campaign-item:hover video { transform: scale(1.06); }
+    .campaign-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,0,0,.7) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(10,0,0,.75) 0%, transparent 55%);
       opacity: 0; transition: opacity var(--transition);
-      display: flex; align-items: flex-end;
-      padding: 1.2rem;
+      display: flex; align-items: flex-end; padding: 1rem;
     }
-    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-    .gallery-item-label {
-      font-size: .8rem; font-weight: 600; color: var(--white);
-      letter-spacing: .04em;
-    }
+    .campaign-item:hover .campaign-overlay { opacity: 1; }
+    .campaign-overlay span { font-size: .75rem; font-weight: 600; color: var(--white); }
+
     /* Placeholder tile */
-    .gallery-placeholder {
-      background: linear-gradient(135deg, var(--charcoal) 0%, #2d1010 100%);
+    .campaign-placeholder {
       display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: .5rem;
-      color: rgba(255,255,255,.25); font-size: .75rem; text-align: center;
-      padding: 1rem;
+      color: rgba(255,255,255,.15); font-size: .72rem; text-align: center; padding: 1rem;
+      border: 1px dashed rgba(255,255,255,.08);
     }
-    .gallery-placeholder-icon { font-size: 2rem; opacity: .3; }
+    .campaign-placeholder-icon { font-size: 1.8rem; opacity: .25; }
 
-    .gallery-separator {
-      margin: 0 0 2rem;
-      border: none; border-top: 1px solid rgba(139,26,26,.15);
+    /* Duo layout — used for campaigns with just 2 tiles of mixed aspect ratio
+       (e.g. one 16:9 video + one 9:16 image sitting side by side) */
+    .campaign-grid-duo {
+      display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;
+    }
+    .campaign-grid-duo .campaign-item {
+      aspect-ratio: unset; height: 360px; border-radius: 8px; overflow: hidden;
+      background: rgba(255,255,255,.04); position: relative; cursor: pointer;
+    }
+    .campaign-item-169 { aspect-ratio: 16/9; flex: 1 1 480px; min-width: 320px; }
+    .campaign-item-916 { aspect-ratio: 9/16; flex: 0 0 auto; width: auto; }
+
+    @media (max-width: 768px) {
+      .campaign-grid-duo { flex-direction: column; }
+      .campaign-grid-duo .campaign-item { height: auto; width: 100%; }
+      .campaign-item-169 { aspect-ratio: 16/9; }
+      .campaign-item-916 { aspect-ratio: 9/16; }
     }
 
-    @media (max-width: 600px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 768px) {
+      .gallery-sidebar { display: none; }
+      .gallery-main { margin-left: 0; }
+      .gallery-hero, .campaign { padding: 2.5rem 1.5rem; }
+      .campaign-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+<div class="gallery-page">
 
-  <!-- Minimal nav -->
-  <nav class="nav" id="nav">
-    <div class="nav-logo">GD</div>
-    <a href="index.html" class="nav-cta">← Back to Portfolio</a>
-  </nav>
+  <!-- Sidebar -->
+  <aside class="gallery-sidebar">
+    <div class="gallery-sidebar-logo">GD</div>
+    <nav class="gallery-sidebar-nav">
+      <a href="#kfc">KFC</a>
+      <a href="#evian">Evian × Swarovski</a>
+      <a href="#jacquemus">Jacquemus × Dyson</a>
+      <a href="#lego">Lego × AirBnB</a>
+      <a href="#laneige">Laneige × Haribo</a>
+    </nav>
+    <a href="index.html#creative" class="gallery-back-link">← Back to Portfolio</a>
+  </aside>
 
-  <div class="gallery-hero">
-    <a href="index.html" class="gallery-back">← Back to Portfolio</a>
-    <h1>AI <em>Creatives</em></h1>
-    <p>
-      Brand visuals, motion concepts, and campaign assets built using Midjourney,
-      Claude, and the Adobe Creative Suite.
-    </p>
-  </div>
+  <!-- Main -->
+  <main class="gallery-main">
 
-  <!-- ===== SECTION 1: KFC AI Ad Creatives ===== -->
-  <div class="gallery-section">
-    <div class="gallery-section-label">Campaign 01</div>
-    <h2 class="gallery-section-title">KFC <em>AI Ad Creatives</em></h2>
-    <div class="gallery-grid">
-      <!-- Replace src with your images, or keep placeholder -->
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🖼️</div>
-          <span>KFC Creative 01<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">KFC — Visual 01</span>
-        </div>
+    <div class="gallery-hero">
+      <div class="gallery-hero-eyebrow">AI-Generated Brand Creatives</div>
+      <h1>Visuals that<br><em>didn't exist</em><br>until I made them.</h1>
+      <p>
+        Built using Google Nano Banana, Omni, Claude, and the Adobe Creative Suite.
+        Concepts, campaigns, and collabs. Imagined into reality.
+      </p>
+    </div>
+
+    <!-- ===== KFC ===== -->
+    <div class="campaign" id="kfc">
+      <div class="campaign-meta">
+        <div class="campaign-num">01</div>
+        <div class="campaign-title">KFC <em>AI Ad Creatives</em></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🖼️</div>
-          <span>KFC Creative 02<br>Upload image/video here</span>
+      <div class="campaign-grid">
+        <div class="campaign-item">
+          <img src="images/ai-kfc-1.jpg" alt="KFC Creative 1"
+            onerror="this.classList.add('campaign-placeholder');this.outerHTML='<div class=\'campaign-item campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 01<br>Upload image here</span></div>'" />
+          <div class="campaign-overlay"><span>KFC — Visual 01</span></div>
         </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">KFC — Visual 02</span>
+        <div class="campaign-item">
+          <video src="images/ai-kfc-2.mp4" autoplay muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 02<br>Upload video here</span></div>'"></video>
+          <!-- <img src="images/ai-kfc-2.jpg" alt="KFC Creative 2" /> -->
+          <div class="campaign-overlay"><span>KFC — Visual 02</span></div>
         </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🖼️</div>
-          <span>KFC Creative 03<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">KFC — Visual 03</span>
+        <div class="campaign-item">
+          <img src="images/ai-kfc-3.jpg" alt="KFC Creative 3"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 03<br>Upload image here</span></div>'" />
+          <div class="campaign-overlay"><span>KFC — Visual 03</span></div>
         </div>
       </div>
     </div>
 
-    <hr class="gallery-separator" />
-
-    <!-- ===== SECTION 2: Vegan Food Motion Design ===== -->
-    <div class="gallery-section-label">Campaign 02</div>
-    <h2 class="gallery-section-title">Vegan Food <em>Motion Design</em></h2>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎬</div>
-          <span>Vegan Concept 01<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Vegan Motion — 01</span>
-        </div>
+    <!-- ===== EVIAN x SWAROVSKI ===== -->
+    <div class="campaign" id="evian">
+      <div class="campaign-meta">
+        <div class="campaign-num">02</div>
+        <div class="campaign-title">Evian <em>× Swarovski</em></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎬</div>
-          <span>Vegan Concept 02<br>Upload image/video here</span>
+      <div class="campaign-grid">
+        <div class="campaign-item">
+          <img src="images/ai-evian-1.jpg" alt="Evian x Swarovski 1"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 01<br>Upload image here</span></div>'" />
+          <!-- <video src="images/ai-evian-1.mp4" autoplay muted loop playsinline></video> -->
+          <div class="campaign-overlay"><span>Evian × Swarovski — 01</span></div>
         </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Vegan Motion — 02</span>
+        <div class="campaign-item">
+          <video src="images/ai-evian-2.mp4" autoplay muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 02<br>Upload video here</span></div>'"></video>
+          <!-- <img src="images/ai-evian-2.jpg" alt="Evian x Swarovski 2" /> -->
+          <div class="campaign-overlay"><span>Evian × Swarovski — 02</span></div>
         </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎬</div>
-          <span>Vegan Concept 03<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Vegan Motion — 03</span>
+        <div class="campaign-item">
+          <img src="images/ai-evian-3.jpg" alt="Evian x Swarovski 3"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 03<br>Upload image here</span></div>'" />
+          <!-- <video src="images/ai-evian-3.mp4" autoplay muted loop playsinline></video> -->
+          <div class="campaign-overlay"><span>Evian × Swarovski — 03</span></div>
         </div>
       </div>
     </div>
 
-    <hr class="gallery-separator" />
-
-    <!-- ===== SECTION 3: Brand & Misc ===== -->
-    <div class="gallery-section-label">Campaign 03</div>
-    <h2 class="gallery-section-title">Brand &amp; <em>Miscellaneous</em></h2>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">✨</div>
-          <span>Creative 01<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Creative — 01</span>
-        </div>
+    <!-- ===== JACQUEMUS x DYSON ===== -->
+    <div class="campaign" id="jacquemus">
+      <div class="campaign-meta">
+        <div class="campaign-num">03</div>
+        <div class="campaign-title">Jacquemus <em>× Dyson</em></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">✨</div>
-          <span>Creative 02<br>Upload image/video here</span>
+      <div class="campaign-grid">
+        <div class="campaign-item">
+          <img src="images/ai-jacquemus-1.jpg" alt="Jacquemus x Dyson 1"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 01<br>Upload image here</span></div>'" />
+          <!-- To use a video instead, delete the <img> line above and un-comment this:
+          <video src="images/ai-jacquemus-1.mp4" autoplay muted loop playsinline></video>
+          -->
+          <div class="campaign-overlay"><span>Jacquemus × Dyson — 01</span></div>
         </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Creative — 02</span>
+        <div class="campaign-item">
+          <video src="images/ai-jacquemus-2.mp4" autoplay muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 02<br>Upload video here</span></div>'"></video>
+          <!-- <img src="images/ai-jacquemus-2.jpg" alt="Jacquemus x Dyson 2" /> -->
+          <div class="campaign-overlay"><span>Jacquemus × Dyson — 02</span></div>
         </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">✨</div>
-          <span>Creative 03<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Creative — 03</span>
+        <div class="campaign-item">
+          <img src="images/ai-jacquemus-3.jpg" alt="Jacquemus x Dyson 3"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 03<br>Upload image here</span></div>'" />
+          <!-- <video src="images/ai-jacquemus-3.mp4" autoplay muted loop playsinline></video> -->
+          <div class="campaign-overlay"><span>Jacquemus × Dyson — 03</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Row 4 -->
-    <hr class="gallery-separator" />
-    <div class="gallery-section-label">Campaign 04</div>
-    <h2 class="gallery-section-title">Campaign <em>Concepts</em></h2>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎨</div>
-          <span>Concept 01<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Concept — 01</span>
-        </div>
+    <!-- ===== LEGO x AIRBNB ===== -->
+    <div class="campaign" id="lego">
+      <div class="campaign-meta">
+        <div class="campaign-num">04</div>
+        <div class="campaign-title">Lego <em>× AirBnB</em></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎨</div>
-          <span>Concept 02<br>Upload image/video here</span>
+      <div class="campaign-grid">
+        <div class="campaign-item">
+          <img src="images/ai-lego-1.jpg" alt="Lego x AirBnB 1"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 01<br>Upload image here</span></div>'" />
+          <!-- <video src="images/ai-lego-1.mp4" autoplay muted loop playsinline></video> -->
+          <div class="campaign-overlay"><span>Lego × AirBnB — 01</span></div>
         </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Concept — 02</span>
+        <div class="campaign-item">
+          <video src="images/ai-lego-2.mp4" autoplay muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 02<br>Upload video here</span></div>'"></video>
+          <!-- <img src="images/ai-lego-2.jpg" alt="Lego x AirBnB 2" /> -->
+          <div class="campaign-overlay"><span>Lego × AirBnB — 02</span></div>
         </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🎨</div>
-          <span>Concept 03<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Concept — 03</span>
+        <div class="campaign-item">
+          <img src="images/ai-lego-3.jpg" alt="Lego x AirBnB 3"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 03<br>Upload image here</span></div>'" />
+          <!-- <video src="images/ai-lego-3.mp4" autoplay muted loop playsinline></video> -->
+          <div class="campaign-overlay"><span>Lego × AirBnB — 03</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Row 5 -->
-    <hr class="gallery-separator" />
-    <div class="gallery-section-label">Campaign 05</div>
-    <h2 class="gallery-section-title">Experimental <em>Visuals</em></h2>
-    <div class="gallery-grid" style="margin-bottom: 6rem;">
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🔬</div>
-          <span>Experimental 01<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Experimental — 01</span>
-        </div>
+    <!-- ===== LANEIGE x HARIBO ===== -->
+    <div class="campaign" id="laneige" style="margin-bottom: 4rem;">
+      <div class="campaign-meta">
+        <div class="campaign-num">05</div>
+        <div class="campaign-title">Laneige <em>× Haribo</em></div>
       </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🔬</div>
-          <span>Experimental 02<br>Upload image/video here</span>
+      <div class="campaign-grid campaign-grid-duo">
+        <div class="campaign-item campaign-item-169">
+          <video src="images/ai-laneige-1.mp4" autoplay muted loop playsinline
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — video<br>16:9 — Upload video here</span></div>'"></video>
+          <div class="campaign-overlay"><span>Laneige × Haribo — 01</span></div>
         </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Experimental — 02</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-placeholder">
-          <div class="gallery-placeholder-icon">🔬</div>
-          <span>Experimental 03<br>Upload image/video here</span>
-        </div>
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Experimental — 03</span>
+        <div class="campaign-item campaign-item-916">
+          <img src="images/ai-laneige-2.jpg" alt="Laneige x Haribo 2"
+            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — image<br>9:16 — Upload image here</span></div>'" />
+          <div class="campaign-overlay"><span>Laneige × Haribo — 02</span></div>
         </div>
       </div>
     </div>
 
-  </div><!-- /gallery-section -->
-
-  <footer style="background:var(--charcoal);padding:2rem;text-align:center;">
-    <a href="index.html" style="color:var(--rose);font-size:.85rem;font-weight:600;">← Back to Portfolio</a>
-    <p style="color:rgba(255,255,255,.3);font-size:.72rem;margin-top:.8rem;">© 2025 Garima Dhasmana</p>
-  </footer>
-
-  <script src="script.js"></script>
+  </main>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
