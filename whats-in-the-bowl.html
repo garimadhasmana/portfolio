@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@1,500;1,600&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-8px) rotate(calc(var(--rot,0deg) + 2deg)); } }
+  @keyframes steamRise { 0% { transform: translate(-50%, 0) scale(0.6); opacity: 0; } 20% { opacity: 0.55; } 100% { transform: translate(-50%, -180px) scale(1.4); opacity: 0; } }
+  @keyframes noodleWave { 0% { transform: translateX(-6px); } 100% { transform: translateX(6px); } }
+  @keyframes wispRise { 0% { transform: translate(-50%, 0) scaleX(0.6); opacity: 0; } 15% { opacity: 0.7; } 100% { transform: translate(-50%, -240px) scaleX(1.4) rotate(6deg); opacity: 0; } }
+  @keyframes wispSway { 0%,100% { transform-origin: bottom center; } }
+  @keyframes spikeShoot { 0% { transform: translate(-50%, -50%) rotate(var(--sa)) translateY(0) scaleY(0.2); opacity: 1; } 100% { transform: translate(-50%, -50%) rotate(var(--sa)) translateY(var(--sd)) scaleY(1); opacity: 0; } }
+  @keyframes puffRise { 0% { transform: translate(-50%, 0) scale(0.4); opacity: 0.9; } 100% { transform: translate(calc(-50% + var(--px)), var(--py)) scale(2.2); opacity: 0; } }
+  @keyframes popupIn { 0% { opacity: 0; transform: translateX(30px) scale(0.92); } 60% { opacity: 1; transform: translateX(-4px) scale(1.02); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
+  @keyframes popupOut { to { opacity: 0; transform: translateX(20px) scale(0.96); } }
+  @keyframes starTwinkle { 0%,100% { transform: scale(1) rotate(0deg); opacity: 1; } 50% { transform: scale(1.3) rotate(15deg); opacity: 0.7; } }
+  @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 60px 12px rgba(230,140,60,0.35), 0 30px 60px -20px rgba(120,30,20,0.35); } 50% { box-shadow: 0 0 100px 24px rgba(230,140,60,0.55), 0 30px 60px -20px rgba(120,30,20,0.45); } }
+  @keyframes sparkle { 0% { transform: translate(0,0) scale(0); opacity: 1; } 100% { transform: translate(var(--sx), var(--sy)) scale(1); opacity: 0; } }
+  @keyframes confettiFall { 0% { transform: translate(0,0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--cx), var(--cy)) rotate(720deg); opacity: 0; } }
+  @keyframes labelPop { from { opacity: 0; transform: translate(-50%, 4px) scale(0.9); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+  @keyframes noodleShimmer { 0%,100% { background-position: 0 0; } 50% { background-position: 40px 40px; } }
+  html, body { margin: 0; background: #f4dfa6; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<div style="width:100%; min-height:100%; background: #f4dfa6; font-family: 'Fredoka', system-ui, sans-serif; color: #3a1a12; padding: 56px 40px 72px; position: relative; overflow: hidden;">
+
+  <div style="position:absolute; inset:0; background-image: linear-gradient(to right, rgba(58,26,18,0.35) 0 2px, transparent 2px), linear-gradient(to bottom, rgba(58,26,18,0.35) 0 2px, transparent 2px); background-size: 120px 120px, 120px 120px; pointer-events:none;"></div>
+  <div style="position:absolute; inset:0; background-image: radial-gradient(circle at center, transparent 45%, rgba(58,26,18,0.12) 100%); pointer-events:none;"></div>
+
+  <div style="max-width:1280px; margin:0 auto; position:relative;">
+
+    <div style="display:flex; align-items:baseline; gap:24px; margin-bottom: 8px;">
+      <div style="height:1px; flex:1; background: linear-gradient(90deg, #c64a34 0%, transparent 100%); opacity:0.35;"></div>
+    </div>
+
+    <h1 style="margin:0 0 8px; font-family:'Archivo Black', sans-serif; font-size: clamp(56px, 8vw, 112px); line-height:0.92; letter-spacing:-0.02em; color:#3a1a12; text-transform:uppercase;">
+      Marketing, but make it
+      <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:500; text-transform:none; color:#c64a34; letter-spacing:-0.01em;">umami</span>
+    </h1>
+
+    <p style="margin: 4px 0 40px; max-width:820px; font-size:22px; line-height:1.5; color:#5a2e22; opacity:0.9;">
+      I don't just bring skills, I bring the ability to combine them into something that works. Drag each ingredient into the bowl to get things steaming!
+    </p>
+
+    <div style="display:flex; gap:14px; align-items:center; margin-bottom:24px; flex-wrap:wrap; position:relative; z-index:5;">
+      <div style="display:flex; gap:8px;">{{ dots }}</div>
+      <div style="font-family:'Fredoka'; font-weight:500; font-size:14px; color:#5a2e22;">{{ countNum }} of 9 in the bowl</div>
+      <button onClick="{{ reset }}" style="margin-left:auto; border:1.5px solid #3a1a12; background:transparent; color:#3a1a12; font-family:'Fredoka'; font-weight:500; font-size:13px; letter-spacing:0.08em; padding:10px 18px; border-radius:999px; cursor:pointer; text-transform:uppercase;">Start over</button>
+    </div>
+
+    <div style="{{ stageStyle }}">{{ stageChildren }}{{ popup }}</div>
+
+    <div style="{{ backdropStyle }}"></div>
+
+    <div style="{{ completionStyle }}">
+      <div style="display:inline-block; padding:20px 40px; border-radius:999px; background: linear-gradient(90deg, #fff4e0, #ffe5c2); border:1.5px solid #c64a34; animation: pulseGlow 2.4s ease-in-out infinite;">
+        <div style="font-family:'Playfair Display', serif; font-style:italic; font-size:24px; color:#3a1a12; max-width:820px; line-height:1.4;">
+          Great work isn't built in isolation — it's assembled, like a perfect bowl of ramen, where every layer adds <span style="color:#c64a34;">flavor, balance, and impact</span>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { placed: {}, dragging: null, popup: null };
+    this.stageRef = React.createRef();
+    this.popupTimer = null;
+    this.ingredients = [
+      { id: 'broth',      label: 'Time Management',                type: 'broth',  size: 0, img: null,
+        desc: 'The base that holds everything together. Deadlines hit, priorities juggled, chaos simmered down to something drinkable.' },
+      { id: 'noodles',    label: 'Strategic Communication',        type: 'noodles',size: 0, img: null,
+        desc: "Led comms for 1,000+ employees across 40+ countries at Danone — executive dashboards, stakeholder narratives, ESG reporting." },
+      { id: 'egg',        label: 'Data Analysis & Reporting',      type: 'top',    size: 320, img: 'uploads/egg.png',
+        desc: "Complex global datasets turned into Power BI and Excel dashboards used by Danone's C-suite for ESG decisions." },
+      { id: 'meat',       label: 'Budget & Resource Management',   type: 'top',    size: 340, img: 'uploads/meat.png',
+        desc: 'The hearty layer. Multi-market budgets planned, tracked and stretched — vendors negotiated, ROI defended, no line item left behind.' },
+      { id: 'bokchoy',    label: 'Project Coordination',           type: 'top',    size: 340, img: 'uploads/bokchoy.png',
+        desc: "Safran's portal: zero to 80% adoption in 30 days — UX, content and training running in parallel across departments." },
+      { id: 'narutomaki', label: 'Content & Storytelling',         type: 'top',    size: 300, img: 'uploads/narutomaki.png',
+        desc: '360° content — videos, white papers, toolkits, infographics — for Airbus, BMW and Boeing. Adopted by 40+ global markets.' },
+      { id: 'radish',     label: 'Digital Campaigns',              type: 'top',    size: 300, img: 'uploads/radish.png',
+        desc: 'Paid and organic via Meta Ads Manager and Sprinklr. 900K+ audience. SEO work that added 30% traffic at Dassault.' },
+      { id: 'bamboo',     label: 'Campaign Management',            type: 'top',    size: 310, img: 'uploads/bamboo.png',
+        desc: 'End-to-end campaign ownership — briefs, timelines, agencies, launches. Global rollouts that landed on schedule and on message.' },
+      { id: 'mushroom',   label: 'Stakeholder Management',         type: 'top',    size: 310, img: 'uploads/mushroom.png',
+        desc: "40+ countries coordinated for Danone's global data programme — HR, Finance, IT and Corporate Comms, zero gaps." },
+    ];
+  }
+
+  componentDidMount() {
+    this.audioCtx = null;
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+    this.forceUpdate();
+    this._t0 = performance.now();
+    const tick = () => {
+      this.orbitAngle = ((performance.now() - this._t0) / 24000) * Math.PI * 2;
+      if (!this.state.dragging) this.forceUpdate();
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    if (this._raf) cancelAnimationFrame(this._raf);
+  }
+
+  playSound = (kind) => {
+    try {
+      if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx = this.audioCtx;
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      const now = ctx.currentTime;
+      if (kind === 'splash') {
+        o.type = 'sine'; o.frequency.setValueAtTime(180, now); o.frequency.exponentialRampToValueAtTime(80, now + 0.3);
+        g.gain.setValueAtTime(0.18, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        o.start(now); o.stop(now + 0.4);
+      } else {
+        o.type = 'triangle'; o.frequency.setValueAtTime(520, now); o.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+        g.gain.setValueAtTime(0.14, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        o.start(now); o.stop(now + 0.2);
+      }
+    } catch (e) {}
+  };
+
+  onDown = (id, e) => {
+    e.preventDefault();
+    const stage = this.stageRef.current.getBoundingClientRect();
+    this.setState({ dragging: { id, x: e.clientX - stage.left, y: e.clientY - stage.top, offX: 0, offY: 0 } });
+  };
+  onMove = (e) => {
+    const d = this.state.dragging;
+    if (!d) return;
+    const stage = this.stageRef.current.getBoundingClientRect();
+    this.setState({ dragging: { ...d, x: e.clientX - stage.left, y: e.clientY - stage.top } });
+  };
+  onUp = (e) => {
+    const d = this.state.dragging;
+    if (!d) return;
+    const stage = this.stageRef.current.getBoundingClientRect();
+    const bowl = this.getBowlGeom(stage.width, stage.height);
+    const dx = d.x - bowl.cx, dy = d.y - bowl.cy;
+    const rrx = bowl.r * 1.1;
+    const bodyDy = dy - bowl.r * 0.4;
+    const inside = ((dx*dx)/(rrx*rrx) + (bodyDy*bodyDy)/((bowl.r*0.9)*(bowl.r*0.9))) < 1.2;
+    if (inside && !this.state.placed[d.id]) {
+      const ing = this.ingredients.find(i => i.id === d.id);
+      this.setState({ placed: { ...this.state.placed, [d.id]: true }, dragging: null, popup: ing });
+      if (this.popupTimer) clearTimeout(this.popupTimer);
+      this.popupTimer = setTimeout(() => this.setState({ popup: null }), 5000);
+      this.playSound(ing.type === 'top' ? 'pop' : 'splash');
+      this.burstSparkles(d.x, d.y);
+      if (Object.keys(this.state.placed).length + 1 === 9) {
+        setTimeout(() => {
+          const s2 = this.stageRef.current.getBoundingClientRect();
+          const b2 = this.getBowlGeom(s2.width, s2.height, true);
+          this.playFlourish();
+          this.burstConfetti(b2.cx, b2.cy);
+          this.burstSpikes(b2.cx, b2.cy);
+        }, 1100);
+      }
+    } else {
+      this.setState({ dragging: null });
+    }
+  };
+
+  playFlourish = () => {
+    try {
+      if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx = this.audioCtx;
+      const notes = [523.25, 659.25, 783.99, 1046.5]; // C E G C
+      notes.forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'triangle';
+        const t0 = ctx.currentTime + i * 0.09;
+        o.frequency.setValueAtTime(f, t0);
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(0.16, t0 + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.55);
+        o.start(t0); o.stop(t0 + 0.6);
+      });
+      // shimmer high note
+      const o2 = ctx.createOscillator();
+      const g2 = ctx.createGain();
+      o2.connect(g2); g2.connect(ctx.destination);
+      o2.type = 'sine';
+      const t1 = ctx.currentTime + 0.36;
+      o2.frequency.setValueAtTime(1568, t1);
+      g2.gain.setValueAtTime(0.001, t1);
+      g2.gain.linearRampToValueAtTime(0.1, t1 + 0.05);
+      g2.gain.exponentialRampToValueAtTime(0.001, t1 + 0.9);
+      o2.start(t1); o2.stop(t1 + 1);
+    } catch (e) {}
+  };
+  burstSpikes = (x, y) => {
+    const stage = this.stageRef.current;
+    for (let i = 0; i < 22; i++) {
+      const s = document.createElement('div');
+      const angle = (Math.PI * 2 * i) / 22;
+      const dist = 240 + Math.random() * 180;
+      s.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:4px; height:${40+Math.random()*30}px; background:linear-gradient(to top, #f9c96b, #fff2c8); border-radius:2px; pointer-events:none; --sa:${angle}rad; --sd:${dist}px; animation: spikeShoot ${900+Math.random()*400}ms cubic-bezier(.2,.7,.2,1) forwards; z-index:110; transform-origin: center;`;
+      stage.appendChild(s);
+      setTimeout(() => s.remove(), 1400);
+    }
+  };
+  burstPuffs = (x, y) => {
+    const stage = this.stageRef.current;
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement('div');
+      const px = (Math.random() - 0.5) * 320;
+      const py = -100 - Math.random() * 180;
+      const size = 30 + Math.random() * 40;
+      p.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${size}px; height:${size}px; border-radius:50%; background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.95), rgba(240,235,220,0.4) 60%, transparent 80%); pointer-events:none; --px:${px}px; --py:${py}px; animation: puffRise ${1400+Math.random()*600}ms ease-out ${i*40}ms forwards; z-index:95;`;
+      stage.appendChild(p);
+      setTimeout(() => p.remove(), 2200);
+    }
+  };
+  burstSparkles = (x, y) => {
+    const stage = this.stageRef.current;
+    for (let i = 0; i < 14; i++) {
+      const s = document.createElement('div');
+      const angle = (Math.PI * 2 * i) / 14 + Math.random() * 0.4;
+      const dist = 40 + Math.random() * 60;
+      s.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:8px; height:8px; border-radius:50%; background:${['#f9c96b','#c64a34','#fff2c8','#e88f4a'][i%4]}; pointer-events:none; --sx:${Math.cos(angle)*dist}px; --sy:${Math.sin(angle)*dist}px; animation: sparkle 700ms ease-out forwards; z-index:100;`;
+      stage.appendChild(s);
+      setTimeout(() => s.remove(), 750);
+    }
+  };
+  burstConfetti = (x, y) => {
+    const stage = this.stageRef.current;
+    const colors = ['#c64a34','#f9c96b','#e88f4a','#6ba58f','#e8a5b8','#3a1a12','#fff2c8'];
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 200 + Math.random() * 300;
+      s.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${8+Math.random()*8}px; height:${4+Math.random()*4}px; background:${colors[i%colors.length]}; pointer-events:none; --cx:${Math.cos(angle)*dist}px; --cy:${Math.sin(angle)*dist + 100}px; animation: confettiFall ${1200+Math.random()*800}ms ease-out forwards; z-index:100; border-radius:2px;`;
+      stage.appendChild(s);
+      setTimeout(() => s.remove(), 2200);
+    }
+  };
+
+  getBowlGeom(w, h, done) {
+    const cx = w / 2;
+    const cy = h * (done ? 0.66 : 0.55);
+    const r = Math.min(w, h) * 0.32;
+    return { cx, cy, r };
+  }
+
+  reset = () => this.setState({ placed: {}, dragging: null });
+
+  renderVals() {
+    const stageEl = this.stageRef.current;
+    const rect = stageEl ? stageEl.getBoundingClientRect() : { width: 1200, height: 936 };
+    const placed = this.state.placed;
+    const placedCount = Object.keys(placed).length;
+    const hasBroth = !!placed.broth;
+    const hasNoodles = !!placed.noodles;
+    const done = placedCount === 9;
+    const bowl = this.getBowlGeom(rect.width, rect.height, done);
+    const bowlTransition = 'left 800ms cubic-bezier(.2,.7,.2,1), top 800ms cubic-bezier(.2,.7,.2,1)';
+
+    const toppings = this.ingredients.filter(i => i.type === 'top');
+    const placedToppingIndex = {};
+    let pi = 0;
+    toppings.forEach(t => { if (placed[t.id]) placedToppingIndex[t.id] = pi++; });
+    const placedToppingCount = pi;
+
+    const stageChildren = [];
+
+    // Ellipse dimensions for the bowl opening (rim)
+    const rimRx = bowl.r * 1.05;
+    const rimRy = bowl.r * 0.42;
+
+    // Bowl shadow beneath
+    stageChildren.push(React.createElement('div', {
+      key: 'shadow',
+      style: {
+        position: 'absolute',
+        transition: bowlTransition,
+        left: bowl.cx - bowl.r * 1.1,
+        top: bowl.cy + bowl.r * 1.05,
+        width: bowl.r * 2.2,
+        height: bowl.r * 0.4,
+        background: 'radial-gradient(ellipse at center, rgba(60,20,10,0.4), transparent 70%)',
+        filter: 'blur(10px)',
+      }
+    }));
+
+    // Bowl body (SVG) — tilted 3/4 view, ceramic
+    stageChildren.push(React.createElement('svg', {
+      key: 'bowl-body',
+      viewBox: `${-rimRx*1.1} ${-rimRy*1.2} ${rimRx*2.2} ${rimRy*1.2 + bowl.r*1.35}`,
+      style: {
+        position: 'absolute',
+        transition: bowlTransition,
+        left: bowl.cx - rimRx*1.1,
+        top: bowl.cy - rimRy*1.2,
+        width: rimRx*2.2,
+        height: rimRy*1.2 + bowl.r*1.35,
+        overflow: 'visible',
+      }
+    }, [
+      React.createElement('defs', { key:'defs' }, [
+        React.createElement('linearGradient', { key:'bg', id:'ceramic', x1:'0%', y1:'0%', x2:'0%', y2:'100%' }, [
+          React.createElement('stop', { key:'s0', offset:'0%', stopColor:'#e2e5ea' }),
+          React.createElement('stop', { key:'s1', offset:'45%', stopColor:'#c8cdd4' }),
+          React.createElement('stop', { key:'s2', offset:'80%', stopColor:'#9aa2ac' }),
+          React.createElement('stop', { key:'s3', offset:'100%', stopColor:'#6d7580' }),
+        ]),
+        React.createElement('radialGradient', { key:'rg', id:'ceramicHi', cx:'50%', cy:'0%', r:'80%' }, [
+          React.createElement('stop', { key:'s0', offset:'0%', stopColor:'rgba(255,255,255,0.55)' }),
+          React.createElement('stop', { key:'s1', offset:'60%', stopColor:'rgba(255,255,255,0)' }),
+        ]),
+        React.createElement('clipPath', { key:'bodyClip', id:'bodyClip' },
+          React.createElement('path', {
+            d: `M ${-rimRx} 0 C ${-rimRx} ${bowl.r*0.55}, ${-rimRx*0.62} ${bowl.r*1.12}, 0 ${bowl.r*1.15} C ${rimRx*0.62} ${bowl.r*1.12}, ${rimRx} ${bowl.r*0.55}, ${rimRx} 0 A ${rimRx} ${rimRy} 0 0 1 ${-rimRx} 0 Z`,
+          })
+        )
+      ]),
+      // Bowl body path: symmetric hemisphere from rim endpoints, contained within rimRx
+      React.createElement('path', {
+        key: 'body',
+        d: `M ${-rimRx} 0 C ${-rimRx} ${bowl.r*0.55}, ${-rimRx*0.62} ${bowl.r*1.12}, 0 ${bowl.r*1.15} C ${rimRx*0.62} ${bowl.r*1.12}, ${rimRx} ${bowl.r*0.55}, ${rimRx} 0 A ${rimRx} ${rimRy} 0 0 1 ${-rimRx} 0 Z`,
+        fill: 'url(#ceramic)',
+        stroke: 'rgba(80,60,45,0.3)',
+        strokeWidth: 1.5,
+      }),
+
+      // Simple vermillion band clipped to the bowl body so it reads as printed on the surface
+      (() => {
+        const bezX = (t) => {
+          const p0 = -rimRx, p1 = -rimRx, p2 = -rimRx*0.62, p3 = 0;
+          const u = 1 - t;
+          return u*u*u*p0 + 3*u*u*t*p1 + 3*u*t*t*p2 + t*t*t*p3;
+        };
+        const bezY = (t) => {
+          const y0 = 0, y1 = bowl.r*0.55, y2 = bowl.r*1.12, y3 = bowl.r*1.15;
+          const u = 1 - t;
+          return u*u*u*y0 + 3*u*u*t*y1 + 3*u*t*t*y2 + t*t*t*y3;
+        };
+        const tTop = 0.32, tBot = 0.44;
+        const topX = Math.abs(bezX(tTop)), topY = bezY(tTop);
+        const botX = Math.abs(bezX(tBot)), botY = bezY(tBot);
+        const ryTop = rimRy * 0.78;
+        const ryBot = rimRy * 0.82;
+        return React.createElement('g', { key: 'bandGroup', clipPath: 'url(#bodyClip)' },
+          React.createElement('path', {
+            d: `M ${-topX} ${topY} A ${topX} ${ryTop} 0 0 0 ${topX} ${topY} L ${botX} ${botY} A ${botX} ${ryBot} 0 0 1 ${-botX} ${botY} Z`,
+            fill: '#c8321e',
+          })
+        );
+      })(),
+      // White rim of the bowl
+      React.createElement('ellipse', { key:'rimFill', cx:0, cy:0, rx: rimRx, ry: rimRy, fill:'#f7f5ee', stroke:'#3a1a12', strokeWidth: 1.5 }),
+      React.createElement('ellipse', { key:'rimInner', cx:0, cy: rimRy*0.14, rx: rimRx*0.94, ry: rimRy*0.9, fill:'none', stroke:'rgba(60,40,30,0.35)', strokeWidth: 1.5 }),
+    ]));
+
+    // Inner bowl well (broth surface — ellipse)
+    const innerR = rimRx * 0.94;
+    const innerRy = rimRy * 0.9;
+    stageChildren.push(React.createElement('div', {
+      key: 'well',
+      style: {
+        position: 'absolute',
+        transition: bowlTransition,
+        left: bowl.cx - innerR,
+        top: bowl.cy - innerRy,
+        width: innerR * 2,
+        height: innerRy * 2,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        background: hasBroth
+          ? 'radial-gradient(ellipse at 40% 35%, #f9c96b 0%, #e8a24a 55%, #b56a2a 100%)'
+          : 'radial-gradient(ellipse at 40% 35%, #f0e4d0 0%, #d9c4a5 60%, #a08260 100%)',
+        boxShadow: 'inset 0 20px 40px rgba(60,20,10,0.35), inset 0 -10px 30px rgba(255,220,140,0.2)',
+        transition: 'background 600ms ease',
+      }
+    }, hasNoodles ? React.createElement('svg', {
+      key: 'noodles-svg',
+      viewBox: '0 0 400 340',
+      preserveAspectRatio: 'xMidYMid slice',
+      style: { position:'absolute', inset:0, width:'100%', height:'100%', overflow:'visible' }
+    }, [
+      React.createElement('defs', { key: 'defs' }, [
+        React.createElement('filter', { key:'gl', id:'noodleGlow', x:'-20%', y:'-20%', width:'140%', height:'140%' }, [
+          React.createElement('feGaussianBlur', { key:'b', stdDeviation:'0.6' })
+        ])
+      ]),
+      // several flowing noodle strands
+      ...Array.from({length: 14}).map((_, i) => {
+        const yBase = 60 + i * 18;
+        const phase = i * 0.7;
+        const d = `M -20 ${yBase} C 60 ${yBase + Math.sin(phase)*30}, 140 ${yBase + Math.cos(phase)*40 + 20}, 200 ${yBase + Math.sin(phase+1)*25} S 340 ${yBase + Math.cos(phase+2)*35}, 420 ${yBase + Math.sin(phase+3)*30}`;
+        const color = i % 2 === 0 ? '#fff2c8' : '#f5d98a';
+        return React.createElement('path', {
+          key: 'n'+i,
+          d,
+          fill: 'none',
+          stroke: color,
+          strokeWidth: 4.5,
+          strokeLinecap: 'round',
+          opacity: 0.9,
+          style: { animation: `noodleWave ${5 + (i%4)}s ease-in-out ${i*0.15}s infinite alternate`, transformOrigin: 'center' }
+        });
+      }),
+      // highlight strands
+      ...Array.from({length: 8}).map((_, i) => {
+        const yBase = 80 + i * 32;
+        const d = `M -20 ${yBase} Q 100 ${yBase - 20} 200 ${yBase} T 420 ${yBase + 10}`;
+        return React.createElement('path', {
+          key: 'h'+i, d, fill:'none', stroke:'#ffffff', strokeWidth: 1.2, strokeLinecap:'round', opacity: 0.55
+        });
+      })
+    ]) : null));
+
+    // Steam — thick asymmetrical wavy wisps (count scales with ingredients added)
+    if (hasBroth && hasNoodles) {
+      const wispPaths = [
+        'M60 260 C 10 220, 100 180, 30 140 S 110 90, 40 40 S 90 10, 55 -10',
+        'M60 260 C 110 210, 20 170, 90 130 S 15 80, 70 30 S 30 5, 60 -10',
+        'M60 260 C 30 210, 95 170, 25 120 S 105 70, 45 20 S 85 0, 55 -15',
+        'M60 260 C 100 220, 15 175, 85 135 S 5 85, 65 40 S 25 5, 55 -10',
+        'M60 260 C 20 215, 85 175, 35 130 S 100 80, 40 30 S 70 0, 55 -12',
+      ];
+      const wispCount = Math.min(3 + placedCount * 2, 18);
+      for (let i = 0; i < wispCount; i++) {
+        const offX = (i - wispCount/2) * 34 + (i%2 ? 10 : -8);
+        stageChildren.push(React.createElement('svg', {
+          key: 'wisp' + i,
+          viewBox: '0 0 120 280',
+          style: {
+            position: 'absolute',
+            left: bowl.cx + offX - 60,
+            top: bowl.cy - bowl.r * 0.4,
+            width: 120 + (i%3)*16,
+            height: 320,
+            animation: `wispRise ${3200 + i * 220}ms ease-out ${i * 380}ms infinite`,
+            pointerEvents: 'none',
+            zIndex: 25,
+            overflow: 'visible',
+          }
+        }, [
+          React.createElement('path', {
+            key: 'p',
+            d: wispPaths[i % wispPaths.length],
+            fill: 'none',
+            stroke: 'rgba(255,255,255,0.92)',
+            strokeWidth: 14 + (i%2)*3,
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+          }),
+          React.createElement('path', {
+            key: 'p2',
+            d: wispPaths[i % wispPaths.length],
+            fill: 'none',
+            stroke: 'rgba(255,255,255,0.5)',
+            strokeWidth: 22,
+            strokeLinecap: 'round',
+            style: { filter: 'blur(2px)' }
+          })
+        ]));
+      }
+    }
+
+    // Chopsticks across rim (thicker)
+    stageChildren.push(React.createElement('div', {
+      key: 'chopsticks',
+      style: {
+        position: 'absolute',
+        transition: bowlTransition,
+        left: bowl.cx - bowl.r * 1.3,
+        top: bowl.cy - bowl.r * 0.55,
+        width: bowl.r * 2.8,
+        height: 34,
+        transform: 'rotate(-8deg)',
+        pointerEvents: 'none',
+        zIndex: 20,
+      }
+    }, [
+      React.createElement('div', { key: 'c1', style: { position:'absolute', left:0, top:0, width:'100%', height:12, background:'linear-gradient(90deg, #7a3c1e 0%, #b57742 60%, #d09a68 100%)', borderRadius:6, boxShadow:'0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(0,0,0,0.25), inset 0 2px 3px rgba(255,230,190,0.4)' }}),
+      React.createElement('div', { key: 'c2', style: { position:'absolute', left:0, top:20, width:'100%', height:12, background:'linear-gradient(90deg, #7a3c1e 0%, #b57742 60%, #d09a68 100%)', borderRadius:6, boxShadow:'0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 4px rgba(0,0,0,0.25), inset 0 2px 3px rgba(255,230,190,0.4)' }}),
+    ]));
+
+    // Placed toppings arranged in an arc across the front of the elliptical opening
+    const arcRx = rimRx * 0.72;
+    const arcRy = rimRy * 0.55;
+    toppings.forEach((t) => {
+      if (!placed[t.id]) return;
+      const posIdx = placedToppingIndex[t.id];
+      const total = Math.max(placedToppingCount, 1);
+      // arc across the front (lower half) of the ellipse, left to right
+      const startA = Math.PI * 0.88;
+      const endA = Math.PI * 0.12;
+      const t01 = total === 1 ? 0.5 : posIdx / (total - 1);
+      const angle = startA + (endA - startA) * t01;
+      const px = bowl.cx + Math.cos(angle) * arcRx;
+      const py = bowl.cy + Math.sin(angle) * arcRy + rimRy * 0.05;
+      stageChildren.push(React.createElement('img', {
+        key: 'placed-' + t.id,
+        src: t.img,
+        style: {
+          position: 'absolute',
+          left: px - t.size/2,
+          top: py - t.size/2,
+          width: t.size,
+          height: t.size,
+          objectFit: 'contain',
+          filter: 'drop-shadow(0 10px 14px rgba(60,20,10,0.35))',
+          zIndex: 15 + posIdx,
+          transition: 'left 400ms ease, top 400ms ease',
+          pointerEvents: 'none',
+        }
+      }));
+    });
+
+    // Orbiting (not placed) ingredients
+    const notPlaced = this.ingredients.filter(i => !placed[i.id]);
+    const orbitRx = bowl.r * 1.9;
+    const orbitRy = bowl.r * 1.35;
+    const orbitOffset = this.orbitAngle || 0;
+    notPlaced.forEach((ing, idx) => {
+      const angle = -Math.PI/2 + (idx / notPlaced.length) * Math.PI * 2 + orbitOffset;
+      const ox = bowl.cx + Math.cos(angle) * orbitRx;
+      const oy = bowl.cy + Math.sin(angle) * orbitRy + bowl.r * 0.2;
+      const isDragging = this.state.dragging && this.state.dragging.id === ing.id;
+      const size = ing.type === 'top' ? ing.size : 130;
+      let content;
+      if (ing.type === 'broth') {
+        content = React.createElement('div', {
+          style: { width: size, height: size, borderRadius: '50%', background: 'radial-gradient(circle at 35% 30%, #ffe08a 0%, #e8a24a 60%, #a45c1e 100%)', boxShadow: '0 8px 16px rgba(60,20,10,0.25), inset 0 -6px 12px rgba(90,40,20,0.3), inset 0 6px 10px rgba(255,240,190,0.5)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'Playfair Display', fontStyle:'italic', color:'#5a2410', fontWeight:600, fontSize: 22, border: '3px solid #fff'}
+        }, 'broth');
+      } else if (ing.type === 'noodles') {
+        content = React.createElement('div', {
+          style: { width: size, height: size, borderRadius: '50%', background: '#fff5dc', boxShadow: '0 8px 16px rgba(60,20,10,0.25), inset 0 0 0 3px #fff', backgroundImage: 'repeating-linear-gradient(45deg, #e8c874 0 3px, transparent 3px 8px), repeating-linear-gradient(-45deg, #d4a850 0 2px, transparent 2px 7px)', border: '3px solid #fff', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'Playfair Display', fontStyle:'italic', color:'#5a2410', fontWeight:600, fontSize:22, textShadow:'0 1px 0 #fff' }
+        }, 'noodles');
+      } else {
+        content = React.createElement('img', {
+          src: ing.img,
+          style: { width: size, height: size, objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(60,20,10,0.3))', pointerEvents: 'none', userSelect: 'none' },
+          draggable: false,
+        });
+      }
+
+      const rot = (idx * 13) % 20 - 10;
+      const dragPos = isDragging ? { left: this.state.dragging.x - size/2, top: this.state.dragging.y - size/2 } : { left: ox - size/2, top: oy - size/2 };
+
+      stageChildren.push(React.createElement('div', {
+        key: 'orbit-' + ing.id,
+        onPointerDown: (e) => this.onDown(ing.id, e),
+        style: {
+          position: 'absolute',
+          ...dragPos,
+          width: size,
+          height: size,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          zIndex: isDragging ? 200 : 30,
+          '--rot': rot + 'deg',
+          animation: isDragging ? 'none' : `bob ${3200 + idx*200}ms ease-in-out ${idx*180}ms infinite`,
+          transform: isDragging ? 'scale(1.08)' : undefined,
+          transition: isDragging ? 'transform 120ms' : 'none',
+          touchAction: 'none',
+        }
+      }, [
+        content,
+        isDragging ? React.createElement('div', {
+          key: 'label',
+          style: {
+            position: 'absolute',
+            left: '50%',
+            top: -42,
+            transform: 'translateX(-50%)',
+            background: '#fff8ec',
+            color: '#3a1a12',
+            fontFamily: 'Fredoka',
+            fontWeight: 500,
+            fontSize: 14,
+            padding: '8px 16px',
+            borderRadius: 999,
+            whiteSpace: 'nowrap',
+            border: '1.5px solid #3a1a12',
+            boxShadow: '0 6px 14px rgba(60,20,10,0.2)',
+            animation: 'labelPop 180ms ease-out',
+            pointerEvents: 'none',
+          }
+        }, ing.label) : null,
+      ]));
+    });
+
+    // dots
+    const dots = [];
+    for (let i = 0; i < 9; i++) {
+      dots.push(React.createElement('div', {
+        key: 'dot' + i,
+        style: {
+          width: 10, height: 10, borderRadius: '50%',
+          background: i < placedCount ? '#c64a34' : 'transparent',
+          border: '1.5px solid #c64a34',
+          transition: 'background 300ms',
+        }
+      }));
+    }
+
+    const popup = this.state.popup;
+    const popupEl = popup ? React.createElement('div', {
+      key: 'popup-' + popup.id,
+      style: {
+        position: 'absolute',
+        right: 0,
+        top: '18%',
+        width: 320,
+        padding: '22px 24px 20px',
+        background: '#fff8ec',
+        border: '2px solid #3a1a12',
+        borderRadius: 22,
+        boxShadow: '0 12px 30px -8px rgba(60,20,10,0.35), 6px 6px 0 #3a1a12',
+        fontFamily: "'Fredoka', system-ui, sans-serif",
+        color: '#3a1a12',
+        zIndex: 300,
+        animation: 'popupIn 320ms cubic-bezier(.2,.9,.3,1.2) forwards',
+        pointerEvents: 'none',
+      }
+    }, [
+      React.createElement('div', { key:'stars', style:{ display:'flex', gap:6, marginBottom:8 } },
+        [0,1,2,3,4].map(k => React.createElement('span', {
+          key:'s'+k,
+          style:{ display:'inline-block', color:'#e0442a', fontSize:20, animation:`starTwinkle 1.2s ease-in-out ${k*0.12}s infinite` }
+        }, '★'))
+      ),
+      React.createElement('div', { key:'label', style:{ fontFamily:"'Archivo Black', sans-serif", fontSize:20, letterSpacing:'-0.01em', lineHeight:1.1, marginBottom:10, textTransform:'uppercase' } }, popup.label),
+      React.createElement('div', { key:'desc', style:{ fontSize:14.5, lineHeight:1.5, color:'#5a2e22' } }, popup.desc),
+    ]) : null;
+
+    return {
+      stageChildren: React.createElement('div', { ref: this.stageRef, style: { position:'relative', width:'100%', height:'100%' } }, stageChildren),
+      popup: popupEl,
+      dots: React.createElement(React.Fragment, null, dots),
+      countNum: placedCount,
+      completionStyle: { opacity: done ? 1 : 0, pointerEvents: done ? 'auto' : 'none', transition:'opacity 700ms ease', marginTop:40, textAlign:'center', position:'relative', zIndex: 5 },
+      backdropStyle: { position:'fixed', inset:0, background:'radial-gradient(ellipse at center, rgba(20,10,6,0.72) 0%, rgba(10,5,3,0.92) 80%)', opacity: done ? 1 : 0, pointerEvents: 'none', transition:'opacity 900ms ease', zIndex: 3, backdropFilter:'blur(3px)', WebkitBackdropFilter:'blur(3px)' },
+      stageStyle: { position:'relative', width:'100%', aspectRatio:'1 / 0.78', maxWidth: 1200, margin:'0 auto', touchAction:'none', zIndex: done ? 4 : 1, transition:'z-index 0ms' },
+      reset: this.reset,
+    };
+  }
+}
+
+// override render tree: use portals into elements by id after mount
+// Simpler: since we can't easily inject into template, we use componentDidMount to render children.
+// We'll instead switch strategy: attach children via refs in componentDidUpdate.
+
+</script>
+</body>
+</html>

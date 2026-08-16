@@ -6,10 +6,23 @@
   <title>Garima Dhasmana — Marketing Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&family=Great+Vibes&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+<!-- Page loader -->
+<div class="page-loader" id="pageLoader">
+  <div class="page-loader-inner">
+    <div class="page-loader-word">Garima</div>
+    <div class="page-loader-bar"></div>
+    <div class="page-loader-caption">Portfolio 2026</div>
+  </div>
+</div>
+
+<!-- Custom cursor -->
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot"  id="cursorDot"  aria-hidden="true"></div>
 
 <div class="shell">
 
@@ -18,7 +31,6 @@
     <canvas class="sidebar-canvas" id="sidebarCanvas"></canvas>
     <div class="sidebar-inner">
       <div class="sidebar-profile">
-        <!-- Rounded SQUARE frame (equal width/height) -->
         <div class="sidebar-photo-frame">
           <img src="images/profile-photo.jpg" alt="Garima Dhasmana" class="sidebar-photo"
             onerror="this.style.background='#8B1A1A';this.removeAttribute('src')" />
@@ -32,9 +44,9 @@
         <a href="#hero"         class="snav-link" data-section="hero">Home</a>
         <a href="#about"        class="snav-link" data-section="about">About</a>
         <a href="#experience"   class="snav-link" data-section="experience">Work</a>
+        <a href="#creative"     class="snav-link" data-section="creative">Creative</a>
         <a href="#projects"     class="snav-link" data-section="projects">Projects</a>
         <a href="#skills"       class="snav-link" data-section="skills">Skills &amp; Tools</a>
-        <a href="#creative"     class="snav-link" data-section="creative">Creative</a>
         <a href="#testimonials" class="snav-link" data-section="testimonials">Kind Words</a>
         <a href="#contact"      class="snav-link" data-section="contact">Contact</a>
       </nav>
@@ -71,21 +83,17 @@
       <a href="#hero"         class="snav-link">Home</a>
       <a href="#about"        class="snav-link">About</a>
       <a href="#experience"   class="snav-link">Work</a>
+      <a href="#creative"     class="snav-link">Creative</a>
       <a href="#projects"     class="snav-link">Projects</a>
       <a href="#skills"       class="snav-link">Skills &amp; Tools</a>
-      <a href="#creative"     class="snav-link">Creative</a>
       <a href="#testimonials" class="snav-link">Kind Words</a>
       <a href="#contact"      class="snav-link">Contact</a>
     </div>
 
-    <!-- ============================================================
-         HERO — ref image 1 layout
-         Big cursive name, cutout photo right, cream bg + particles
-    ============================================================ -->
+    <!-- ============================================================ HERO ============================================================ -->
     <section class="stack-section hero-section" id="hero">
       <canvas class="hero-canvas" id="heroCanvas"></canvas>
 
-      <!-- Top bar -->
       <div class="hero-topbar">
         <div class="hero-topbar-left">
           <div class="hero-monogram">G</div>
@@ -96,13 +104,9 @@
         </div>
       </div>
 
-      <!-- Main content -->
       <div class="hero-body">
-        <!-- Left — headline + sub -->
         <div class="hero-left">
-          <!-- Cursive big name like ref image 1 italic title -->
           <div class="hero-cursive fade-in" style="animation-delay:.2s">Garima</div>
-          <!-- Bold condensed last name -->
           <h1 class="hero-headline fade-in" style="animation-delay:.35s">DHASMANA</h1>
 
           <div class="hero-divider fade-in" style="animation-delay:.5s">
@@ -110,7 +114,7 @@
           </div>
 
           <p class="hero-tagline fade-in" style="animation-delay:.6s">
-            MARKETING STRATEGIST.<br>
+            COMMUNICATIONS EXPERT.<br>
             BRAND STORYTELLER.<br>
           </p>
 
@@ -121,34 +125,28 @@
           </p>
 
           <div class="hero-ctas fade-in" style="animation-delay:.84s">
-            <a href="#about" class="btn-primary">See My Work</a>
-            <a href="https://calendly.com/garima-dhasmana04/30min" target="_blank" class="btn-ghost">Book a Call</a>
+            <a href="#about" class="btn-primary" data-magnetic>See My Work</a>
+            <a href="https://calendly.com/garima-dhasmana04/30min" target="_blank" class="btn-ghost" data-magnetic>Book a Call</a>
           </div>
         </div>
 
-        <!-- Right — photo cutout + circle bg (ref image 1) -->
         <div class="hero-right fade-in" style="animation-delay:.45s">
           <div class="hero-circle-bg"></div>
           <div class="hero-photo-wrap">
-            <img
-              src="images/hero-photo.png"
-              alt="Garima Dhasmana"
-              class="hero-photo"
-              onerror="this.style.opacity='0';this.removeAttribute('src')"
-            />
-            <!-- Placeholder shown when no photo yet -->
+            <img src="images/hero-photo.png" alt="Garima Dhasmana" class="hero-photo"
+              onerror="this.style.opacity='0';this.removeAttribute('src')" />
             <div class="hero-photo-placeholder">
               Add your photo here<br>
               <small>Upload <strong>hero-photo.png</strong> to images folder<br>
               Use a cut-out PNG with a transparent background for best effect</small>
             </div>
           </div>
-          <!-- Available badge like ref image 1 -->
-          <div class="hero-badge-circle">
+          <!-- Rotating availability badge back on hero -->
+          <div class="hero-badge-circle" aria-hidden="true">
             <svg viewBox="0 0 100 100" class="hero-badge-ring">
-              <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
-              <text font-size="10.5" font-family="Oswald" letter-spacing="3.5" fill="currentColor">
-                <textPath href="#circlePath">OPEN TO CDI/CDD · PARIS ·</textPath>
+              <path id="heroCirclePath" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
+              <text font-size="9.4" font-family="Oswald" letter-spacing="3.1" fill="currentColor">
+                <textPath href="#heroCirclePath">OPEN TO CDI/CDD · PARIS · 2026 · </textPath>
               </text>
             </svg>
             <div class="hero-badge-icon">✦</div>
@@ -156,23 +154,30 @@
         </div>
       </div>
 
-      <!-- Bottom signature line -->
-      <div class="hero-signature fade-in" style="animation-delay:1s">
+      <!-- Stats up top — appear right below the hero body -->
+      <div class="hero-stats fade-in" style="animation-delay:1s">
+        <div class="hstat"><span class="hstat-num" data-count-to="40" data-suffix="+">0</span><span class="hstat-label">Countries coordinated</span></div>
+        <div class="hstat"><span class="hstat-num" data-count-to="900" data-suffix="K+">0</span><span class="hstat-label">Social reach</span></div>
+        <div class="hstat"><span class="hstat-num" data-count-to="80" data-suffix="%">0</span><span class="hstat-label">Adoption in month one</span></div>
+        <div class="hstat"><span class="hstat-num" data-count-to="30" data-prefix="+" data-suffix="%">0</span><span class="hstat-label">SEO traffic growth</span></div>
+      </div>
+
+      <div class="hero-signature fade-in" style="animation-delay:1.15s">
         <span class="hero-sig-cursive">Garima</span>
         <span class="hero-sig-line"></span>
         <span class="hero-sig-role">Looking for CDI/CDD · Paris Region · Available June 2026</span>
       </div>
     </section>
 
-    <!-- ============================================================
-         ABOUT — cream bg, text left, 2×2 polaroid grid right
-    ============================================================ -->
+    <!-- ============================================================ ABOUT ============================================================ -->
     <section class="stack-section about-section" id="about">
-      <div class="section-label reveal">Chapter 01</div>
+      <div class="section-header">
+        <span class="section-chapter">Chapter · 01</span>
+        <span class="section-rule"></span>
+      </div>
       <h2 class="section-title reveal">The <em>Human</em> Behind the Brief</h2>
 
       <div class="about-layout">
-        <!-- Text left -->
         <div class="about-text">
           <p class="about-lead reveal">
             Once upon a time, I measured solutions in a chemistry lab. Now I craft brand messages instead with the same precision, better stories.
@@ -188,28 +193,31 @@
             <span class="lang-pill">🇫🇷 French — Intermediate</span>
             <span class="lang-pill">🇮🇳 Hindi — Native</span>
           </div>
-          <!-- Modeling portfolio sub-page link — currently commented out (invisible).
-               Once modeling.html (or whatever you name the sub-page) is ready,
-               delete the "<!--" above and " "   -->
-          <!--
-          <a href="modeling.html" class="about-modeling-link reveal" style="transition-delay:.3s">I Like To Pose For Fun →</a>
-          -->
+
+          <!-- Currently reading -->
+          <a href="https://www.amazon.fr/Inmate-Freida-McFadden/dp/172829617X" target="_blank" rel="noopener" class="book-card reveal" style="transition-delay:.3s" data-magnetic>
+            <div class="book-cover">
+              <img src="https://m.media-amazon.com/images/I/818na1KA3FL._SY522_.jpg" alt="The Inmate — Freida McFadden" onerror="this.style.display='none'" />
+            </div>
+            <div class="book-body">
+              <div class="book-eyebrow">Currently reading</div>
+              <div class="book-title">The Inmate <span>— Freida McFadden</span></div>
+              <div class="book-note">Best part: The kind of thriller that makes you say just one more chapter at 2 AM where every character feels suspicious, making it so addictive.</div>
+              <div class="book-cta">View on Amazon <span class="cta-line"></span></div>
+            </div>
+          </a>
         </div>
 
-        <!-- Right — 2×2 polaroid hobby grid -->
         <div class="polaroid-grid">
-
           <div class="polaroid-card pop-in" style="--pop-delay: 0s; --pop-rotate: -3deg">
             <div class="polaroid-tape"></div>
             <div class="polaroid-media">
               <img src="images/hobby-theatre.jpg" alt="Theatre"
                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
               <div class="polaroid-placeholder"> <br><small>  <strong> </strong></small></div>
-              <!-- video option: <video src="images/hobby-theatre.mp4" autoplay muted loop playsinline></video> -->
             </div>
             <div class="polaroid-label">Theatre</div>
           </div>
-
           <div class="polaroid-card pop-in" style="--pop-delay: .2s; --pop-rotate: -2deg">
             <div class="polaroid-tape"></div>
             <div class="polaroid-media">
@@ -219,7 +227,6 @@
             </div>
             <div class="polaroid-label">Art</div>
           </div>
-
           <div class="polaroid-card pop-in" style="--pop-delay: .2s; --pop-rotate: -2deg">
             <div class="polaroid-tape"></div>
             <div class="polaroid-media">
@@ -229,7 +236,6 @@
             </div>
             <div class="polaroid-label">Health &amp; Wellness</div>
           </div>
-
           <div class="polaroid-card pop-in" style="--pop-delay: .3s; --pop-rotate: 3deg">
             <div class="polaroid-tape"></div>
             <div class="polaroid-media">
@@ -239,16 +245,16 @@
             </div>
             <div class="polaroid-label">Food Explorer</div>
           </div>
-
-        </div><!-- /polaroid-grid -->
+        </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         WORK EXPERIENCE
-    ============================================================ -->
+    <!-- ============================================================ WORK EXPERIENCE ============================================================ -->
     <section class="stack-section section-dark" id="experience">
-      <div class="section-label reveal">Chapter 02</div>
+      <div class="section-header section-header-light">
+        <span class="section-chapter">Chapter · 02</span>
+        <span class="section-rule"></span>
+      </div>
       <h2 class="section-title section-title-light reveal">Where I've <em>Made Things Happen</em></h2>
 
       <div class="exp-tabs reveal">
@@ -262,17 +268,7 @@
         <div class="exp-panel active" id="panel-danone">
           <div class="exp-grid">
             <div class="exp-media-col">
-              <div class="exp-media-box"><div class="exp-media-hint"><iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/9rloy47CS18?start=52" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" 
-  loading="lazy"
-  allowfullscreen>
-</iframe></div></div>
+              <div class="exp-media-box"><iframe src="https://www.youtube.com/embed/9rloy47CS18?start=52" title="Danone" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
               <div class="exp-logo-slot">
                 <img src="images/logo-danone.png" alt="Danone" class="exp-logo-img"
                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
@@ -286,17 +282,18 @@
               </div>
             </div>
             <div class="exp-content">
+              <div class="exp-company reveal">Danone</div>
               <div class="exp-role reveal">Global Communications &amp; Project Manager</div>
-              <div class="exp-meta reveal">Danone · Paris · May – Nov 2025</div>
+              <div class="exp-meta reveal">Paris · May – Nov 2025</div>
               <div class="exp-story reveal">
                 <div class="story-block"><div class="story-label">The Role</div><p>Used data, storytelling, and an aggressive amount of coffee to make global compliance look easy.</p></div>
                 <div class="story-block"><div class="story-label">The Impact</div><p>Coordinated a 40-country network to deliver 10+ human rights reports and engage 1,000+ employees globally.</p></div>
               </div>
               <div class="exp-metrics reveal">
-                <div class="metric"><span class="metric-num">40+</span><span class="metric-label">Countries</span></div>
-                <div class="metric"><span class="metric-num">10+</span><span class="metric-label">Reports Delivered</span></div>
-                <div class="metric"><span class="metric-num">1,000+</span><span class="metric-label">Employees Engaged</span></div>
-                <div class="metric"><span class="metric-num">100%</span><span class="metric-label">Data Coverage</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="40" data-suffix="+">0</span><span class="metric-label">Countries</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="10" data-suffix="+">0</span><span class="metric-label">Reports Delivered</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="1000" data-suffix="+">0</span><span class="metric-label">Employees Engaged</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="100" data-suffix="%">0</span><span class="metric-label">Data Coverage</span></div>
               </div>
             </div>
           </div>
@@ -305,17 +302,7 @@
         <div class="exp-panel" id="panel-safran">
           <div class="exp-grid">
             <div class="exp-media-col">
-              <div class="exp-media-box"><div class="exp-media-hint"><iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/paL1ZF3eMso?start=82" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" 
-  loading="lazy"
-  allowfullscreen>
-</iframe></div></div>
+              <div class="exp-media-box"><iframe src="https://www.youtube.com/embed/paL1ZF3eMso?start=82" title="Safran" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
               <div class="exp-logo-slot">
                 <img src="images/logo-safran.png" alt="Safran" class="exp-logo-img"
                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
@@ -329,17 +316,18 @@
               </div>
             </div>
             <div class="exp-content">
-              <div class="exp-role reveal">Product Marketing Specialist</div>
-              <div class="exp-meta reveal">Safran · Paris · May – Aug 2024</div>
+              <div class="exp-company reveal">Safran</div>
+              <div class="exp-role reveal">Marketing Specialist</div>
+              <div class="exp-meta reveal">Paris · May – Aug 2024</div>
               <div class="exp-story reveal">
                 <div class="story-block"><div class="story-label">The Role</div><p>Convinced hundreds of busy aerospace professionals to use a new internal portal and somehow got them to enjoy it.</p></div>
                 <div class="story-block"><div class="story-label">The Impact</div><p>Dragged user adoption to 80% in month one, slashed data retrieval times by 35%, and hosted events for 200+ pros.</p></div>
               </div>
               <div class="exp-metrics reveal">
-                <div class="metric"><span class="metric-num">80%</span><span class="metric-label">Adoption — Month 1</span></div>
-                <div class="metric"><span class="metric-num">-35%</span><span class="metric-label">Data Retrieval Time</span></div>
-                <div class="metric"><span class="metric-num">200+</span><span class="metric-label">Event Professionals</span></div>
-                <div class="metric"><span class="metric-num">85%</span><span class="metric-label">Satisfaction Rate</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="80" data-suffix="%">0</span><span class="metric-label">Adoption — Month 1</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="35" data-prefix="-" data-suffix="%">0</span><span class="metric-label">Data Retrieval Time</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="200" data-suffix="+">0</span><span class="metric-label">Event Professionals</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="85" data-suffix="%">0</span><span class="metric-label">Satisfaction Rate</span></div>
               </div>
             </div>
           </div>
@@ -348,17 +336,7 @@
         <div class="exp-panel" id="panel-dassault">
           <div class="exp-grid">
             <div class="exp-media-col">
-              <div class="exp-media-box"><div class="exp-media-hint"><iframe 
-            width="560" 
-            height="315" 
-            src="https://www.youtube.com/embed/Ch4WLv3w6gM?start=76" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            loading="lazy"
-            allowfullscreen>
-          </iframe></div></div>
+              <div class="exp-media-box"><iframe src="https://www.youtube.com/embed/Ch4WLv3w6gM?start=76" title="Dassault Systèmes" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
               <div class="exp-logo-slot">
                 <img src="images/logo-dassault.png" alt="Dassault" class="exp-logo-img"
                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
@@ -373,17 +351,18 @@
               </div>
             </div>
             <div class="exp-content">
+              <div class="exp-company reveal">Dassault Systèmes</div>
               <div class="exp-role reveal">Marketing &amp; Brand Communications Specialist</div>
-              <div class="exp-meta reveal">Dassault Systèmes · Vélizy · Nov 2023 – Apr 2024</div>
+              <div class="exp-meta reveal">Vélizy · Nov 2023 – Apr 2024</div>
               <div class="exp-story reveal">
                 <div class="story-block"><div class="story-label">The Role</div><p>Managed a social media army bigger than San Francisco (900K+) while making sure aviation and automotive giants thought we were cool.</p></div>
                 <div class="story-block"><div class="story-label">The Impact</div><p>Boosted SEO web traffic by 30% and rallied 6+ departments to increase operational efficiency by 25%.</p></div>
               </div>
               <div class="exp-metrics reveal">
-                <div class="metric"><span class="metric-num">900K+</span><span class="metric-label">Social Audience</span></div>
-                <div class="metric"><span class="metric-num">+30%</span><span class="metric-label">SEO Traffic</span></div>
-                <div class="metric"><span class="metric-num">+25%</span><span class="metric-label">Efficiency Gain</span></div>
-                <div class="metric"><span class="metric-num">6+</span><span class="metric-label">Departments</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="900" data-suffix="K+">0</span><span class="metric-label">Social Audience</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="30" data-prefix="+" data-suffix="%">0</span><span class="metric-label">SEO Traffic</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="25" data-prefix="+" data-suffix="%">0</span><span class="metric-label">Efficiency Gain</span></div>
+                <div class="metric"><span class="metric-num" data-count-to="6" data-suffix="+">0</span><span class="metric-label">Departments</span></div>
               </div>
             </div>
           </div>
@@ -391,64 +370,31 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         PROJECTS
-    ============================================================ -->
-    <section class="stack-section section-cream" id="projects">
-      <div class="section-label reveal">Chapter 03</div>
-      <h2 class="section-title reveal">Decks That <em>Won Rooms</em></h2>
-      <p class="section-intro reveal">
-        Academic brand challenges: Real briefs, Real Stakes, Real impact.<br>
-        <span class="how-to-note"> </span>
-      </p>
-      <div class="decks-grid">
-        <div class="deck-card reveal">
-          <div class="deck-header"><div class="deck-brand">Carrefour</div><div class="deck-type">Brand Challenge · EDHEC</div></div>
-          <div class="deck-embed-wrap">
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ4GuR6647sxb1DglAwfNEaFxg7AOcKzvYmypQeAqWQejLUltKLjh4baWVcnqXIz2cc6D3L2VpnAMwZ/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen class="deck-iframe" title="Carrefour"></iframe>
-            <div class="deck-placeholder"><span>📊</span><p>Paste your Google Slides embed URL for Carrefour deck</p><small>File → Share → Publish to web → Embed → copy src URL</small></div>
-          </div>
-          <a href="https://docs.google.com/presentation/d/e/2PACX-1vQ4GuR6647sxb1DglAwfNEaFxg7AOcKzvYmypQeAqWQejLUltKLjh4baWVcnqXIz2cc6D3L2VpnAMwZ/pub" target="_blank" rel="noopener" class="deck-link">View Full Deck ↗</a>
-        </div>
-        <div class="deck-card reveal" style="transition-delay:.1s">
-          <div class="deck-header"><div class="deck-brand">Nutella</div><div class="deck-type">Brand Challenge · EDHEC</div></div>
-          <div class="deck-embed-wrap">
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRtTC8pt7LMc6_KPz4kpA7QL6XD9hyP5owNmvc_d7TpUaWDCW_sj6xTy_UE0d5Vra8d8fEbeVfOXdW7/pubembed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen class="deck-iframe" title="Nutella"></iframe>
-            <div class="deck-placeholder"><span>📊</span><p>Paste your Google Slides embed URL for Nutella deck</p><small>File → Share → Publish to web → Embed → copy src URL</small></div>
-          </div>
-          <a href="https://docs.google.com/presentation/d/e/2PACX-1vRtTC8pt7LMc6_KPz4kpA7QL6XD9hyP5owNmvc_d7TpUaWDCW_sj6xTy_UE0d5Vra8d8fEbeVfOXdW7/pub" target="_blank" rel="noopener" class="deck-link">View Full Deck ↗</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SKILLS & TOOLS
-    ============================================================ -->
-    <section class="stack-section section-ivory" id="skills">
-      <div class="section-label reveal">Chapter 04</div>
-      <h2 class="section-title reveal">What's in <em>the Kit</em></h2>
-      <div class="skills-grid">
-        <div class="skill-card reveal" tabindex="0"><div class="skill-front"><div class="skill-icon">📣</div><div class="skill-name">Strategic Communication</div></div><div class="skill-back"><div class="skill-example">Led comms for 1,000+ employees across 40+ countries at Danone ( executive dashboards, stakeholder narratives, ESG reporting ).</div></div></div>
-        <div class="skill-card reveal" style="transition-delay:.07s" tabindex="0"><div class="skill-front"><div class="skill-icon">🎬</div><div class="skill-name">Content Creation &amp; Storytelling</div></div><div class="skill-back"><div class="skill-example">360° content ( videos, white papers, toolkits, infographics ) for Airbus, BMW, and Boeing. Adopted by 40+ global markets.</div></div></div>
-        <div class="skill-card reveal" style="transition-delay:.14s" tabindex="0"><div class="skill-front"><div class="skill-icon">📊</div><div class="skill-name">Digital Marketing &amp; Campaigns</div></div><div class="skill-back"><div class="skill-example">Paid + organic via Meta Ads Manager &amp; Sprinklr. 900K+ audience. SEO → +30% traffic at Dassault.</div></div></div>
-        <div class="skill-card reveal" style="transition-delay:.07s" tabindex="0"><div class="skill-front"><div class="skill-icon">🌍</div><div class="skill-name">Stakeholder Management</div></div><div class="skill-back"><div class="skill-example">40+ countries coordinated for Danone's global data programme: HR, Finance, IT and Corporate Comms, zero gaps.</div></div></div>
-        <div class="skill-card reveal" style="transition-delay:.14s" tabindex="0"><div class="skill-front"><div class="skill-icon">📈</div><div class="skill-name">Data Analysis &amp; Reporting</div></div><div class="skill-back"><div class="skill-example">Complex global datasets → Power BI &amp; Excel dashboards used by Danone C-suite for ESG decisions.</div></div></div>
-        <div class="skill-card reveal" style="transition-delay:.21s" tabindex="0"><div class="skill-front"><div class="skill-icon">🗂️</div><div class="skill-name">Project Coordination</div></div><div class="skill-back"><div class="skill-example">Safran's portal: zero to 80% adoption in 30 days including UX, content, and training simultaneously across departments.</div></div></div>
-      </div>
-      <div class="tools-label reveal">Tools I Use</div>
-      <div class="tools-cloud reveal">
-        <span class="tool-pill">Claude</span><span class="tool-pill">Midjourney</span><span class="tool-pill tool-pill-accent">Figma</span><span class="tool-pill">Power BI</span><span class="tool-pill">ChatGPT</span><span class="tool-pill tool-pill-accent">Adobe Creative Suite</span><span class="tool-pill">Canva</span><span class="tool-pill">Brevo</span><span class="tool-pill">Jira</span><span class="tool-pill tool-pill-accent">Meta Ads Manager</span><span class="tool-pill">Sprinklr</span><span class="tool-pill">CapCut</span><span class="tool-pill">Notion</span><span class="tool-pill">Viva Engage</span><span class="tool-pill tool-pill-accent">Sharepoint</span><span class="tool-pill">Wordpress</span><span class="tool-pill">Nano Banana</span><span class="tool-pill">Microsoft Office</span>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         CREATIVE
-    ============================================================ -->
+    <!-- ============================================================ CREATIVE (AI first, then shops) — moved up ============================================================ -->
     <section class="stack-section section-dark" id="creative">
-      <div class="section-label reveal">Chapter 05</div>
-      <h2 class="section-title section-title-light reveal">The <em>Side of Me</em> That Never Clocks Out</h2>
-      <div class="shop-grid">
-        <a href="https://in.pinterest.com/Garimaaa04/" target="_blank" class="shop-card reveal">
+      <div class="section-header section-header-light">
+        <span class="section-chapter">Chapter · 03</span>
+        <span class="section-rule"></span>
+      </div>
+      <h2 class="section-title section-title-light reveal">AI <em>Creatives</em> &amp; Side Hustles</h2>
+
+      <div class="ai-preview-header reveal">
+        <div class="ai-preview-label">AI Creatives · click any image to expand</div>
+        <a href="ai-creatives.html" class="btn-ghost btn-sm" data-magnetic>View Full Gallery →</a>
+      </div>
+      <div class="creatives-strip creatives-strip-prominent reveal">
+        <div class="creative-group">
+          <div class="creative-group-label">KFC AI Ad Creatives</div>
+          <div class="creative-row">
+            <button type="button" class="creative-thumb" data-lightbox="images/ai-kfc-1.jpg" data-caption="KFC — AI Ad Creative 01"><img src="images/ai-kfc-1.jpg" alt="" onerror="this.style.background='#8B1A1A';this.removeAttribute('src')" /></button>
+            <button type="button" class="creative-thumb" data-lightbox="images/ai-kfc-2.jpg" data-caption="KFC — AI Ad Creative 02"><img src="images/ai-kfc-2.jpg" alt="" onerror="this.style.background='#6B1414';this.removeAttribute('src')" /></button>
+            <button type="button" class="creative-thumb" data-lightbox="images/ai-kfc-3.jpg" data-caption="KFC — AI Ad Creative 03"><img src="images/ai-kfc-3.jpg" alt="" onerror="this.style.background='#B52626';this.removeAttribute('src')" /></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="shop-grid" style="margin-top:3rem">
+        <a href="https://in.pinterest.com/Garimaaa04/" target="_blank" class="shop-card reveal" data-magnetic>
           <div class="shop-card-left">
             <div class="shop-brand-logo shop-logo-pinterest"><svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></div>
             <div class="shop-name">Pinterest</div>
@@ -457,7 +403,7 @@
           </div>
           <div class="shop-card-image"><img src="images/pinterest-preview.jpg" alt="Pinterest" onerror="this.style.display='none'" /></div>
         </a>
-        <a href="https://www.etsy.com/shop/PrintsandPalettee?ref=seller-platform-mcnav" target="_blank" class="shop-card reveal" style="transition-delay:.1s">
+        <a href="https://www.etsy.com/shop/PrintsandPalettee?ref=seller-platform-mcnav" target="_blank" class="shop-card reveal" style="transition-delay:.1s" data-magnetic>
           <div class="shop-card-left">
             <div class="shop-brand-logo shop-logo-etsy"><img src="images/logo-etsy.png" alt="Etsy" class="shop-logo-img" /></div>
             <div class="shop-name">Etsy Shop</div>
@@ -467,20 +413,64 @@
           <div class="shop-card-image"><img src="images/etsy-preview.jpg" alt="Etsy" onerror="this.style.display='none'" /></div>
         </a>
       </div>
-      <div class="ai-preview-header reveal">
-        <div class="ai-preview-label">AI Creatives</div>
-        <a href="ai-creatives.html" class="btn-ghost btn-sm">View Full Gallery →</a>
+    </section>
+
+    <!-- ============================================================ PROJECTS ============================================================ -->
+    <section class="stack-section section-cream" id="projects">
+      <div class="section-header">
+        <span class="section-chapter">Chapter · 04</span>
+        <span class="section-rule"></span>
       </div>
-      <div class="creatives-strip creatives-strip-single reveal">
-        <div class="creative-group"><div class="creative-group-label">KFC AI Ad Creatives</div><div class="creative-row"><div class="creative-thumb"><img src="images/ai-kfc-1.jpg" alt="" onerror="this.style.background='#8B1A1A';this.removeAttribute('src')" /></div><div class="creative-thumb"><img src="images/ai-kfc-2.jpg" alt="" onerror="this.style.background='#6B1414';this.removeAttribute('src')" /></div><div class="creative-thumb"><img src="images/ai-kfc-3.jpg" alt="" onerror="this.style.background='#B52626';this.removeAttribute('src')" /></div></div></div>
+      <h2 class="section-title reveal">Decks That <em>Won Rooms</em></h2>
+      <p class="section-intro reveal">
+        Academic brand challenges: Real briefs, Real Stakes, Real impact.
+      </p>
+      <div class="decks-grid">
+        <div class="deck-card reveal">
+          <div class="deck-header"><div class="deck-brand">Carrefour</div><div class="deck-type">Brand Challenge · EDHEC</div></div>
+          <div class="deck-embed-wrap">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ4GuR6647sxb1DglAwfNEaFxg7AOcKzvYmypQeAqWQejLUltKLjh4baWVcnqXIz2cc6D3L2VpnAMwZ/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen class="deck-iframe" title="Carrefour"></iframe>
+          </div>
+          <a href="https://docs.google.com/presentation/d/e/2PACX-1vQ4GuR6647sxb1DglAwfNEaFxg7AOcKzvYmypQeAqWQejLUltKLjh4baWVcnqXIz2cc6D3L2VpnAMwZ/pub" target="_blank" rel="noopener" class="deck-link" data-magnetic>View Full Deck ↗</a>
+        </div>
+        <div class="deck-card reveal" style="transition-delay:.1s">
+          <div class="deck-header"><div class="deck-brand">Nutella</div><div class="deck-type">Brand Challenge · EDHEC</div></div>
+          <div class="deck-embed-wrap">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRtTC8pt7LMc6_KPz4kpA7QL6XD9hyP5owNmvc_d7TpUaWDCW_sj6xTy_UE0d5Vra8d8fEbeVfOXdW7/pubembed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen class="deck-iframe" title="Nutella"></iframe>
+          </div>
+          <a href="https://docs.google.com/presentation/d/e/2PACX-1vRtTC8pt7LMc6_KPz4kpA7QL6XD9hyP5owNmvc_d7TpUaWDCW_sj6xTy_UE0d5Vra8d8fEbeVfOXdW7/pub" target="_blank" rel="noopener" class="deck-link" data-magnetic>View Full Deck ↗</a>
+        </div>
       </div>
     </section>
 
-    <!-- ============================================================
-         TESTIMONIALS
-    ============================================================ -->
+    <!-- ============================================================ SKILLS — ramen bowl + tools marquee ============================================================ -->
+    <section class="stack-section section-ivory" id="skills">
+      <div class="section-header">
+        <span class="section-chapter">Chapter · 05</span>
+        <span class="section-rule"></span>
+      </div>
+      <h2 class="section-title reveal">What's in <em>the Kit</em></h2>
+      <p class="section-intro reveal">Drag each ingredient into the bowl — every one is a skill on the menu.</p>
+
+      <div class="ramen-wrap reveal">
+        <iframe src="whats-in-the-bowl.html" class="ramen-frame" title="Skills · What's in the Bowl" loading="lazy"></iframe>
+      </div>
+
+      <div class="tools-label reveal">Tools I Use Daily</div>
+      <div class="tools-marquee reveal" aria-hidden="false">
+        <div class="tools-track">
+          <span class="tool-pill">Claude</span><span class="tool-pill">Midjourney</span><span class="tool-pill tool-pill-accent">Figma</span><span class="tool-pill">Power BI</span><span class="tool-pill">ChatGPT</span><span class="tool-pill tool-pill-accent">Adobe Creative Suite</span><span class="tool-pill">Canva</span><span class="tool-pill">Brevo</span><span class="tool-pill">Jira</span><span class="tool-pill tool-pill-accent">Meta Ads Manager</span><span class="tool-pill">Sprinklr</span><span class="tool-pill">CapCut</span><span class="tool-pill">Notion</span><span class="tool-pill">Viva Engage</span><span class="tool-pill tool-pill-accent">Sharepoint</span><span class="tool-pill">Wordpress</span><span class="tool-pill">Nano Banana</span><span class="tool-pill">Microsoft Office</span>
+          <span class="tool-pill" aria-hidden="true">Claude</span><span class="tool-pill" aria-hidden="true">Midjourney</span><span class="tool-pill tool-pill-accent" aria-hidden="true">Figma</span><span class="tool-pill" aria-hidden="true">Power BI</span><span class="tool-pill" aria-hidden="true">ChatGPT</span><span class="tool-pill tool-pill-accent" aria-hidden="true">Adobe Creative Suite</span><span class="tool-pill" aria-hidden="true">Canva</span><span class="tool-pill" aria-hidden="true">Brevo</span><span class="tool-pill" aria-hidden="true">Jira</span><span class="tool-pill tool-pill-accent" aria-hidden="true">Meta Ads Manager</span><span class="tool-pill" aria-hidden="true">Sprinklr</span><span class="tool-pill" aria-hidden="true">CapCut</span><span class="tool-pill" aria-hidden="true">Notion</span><span class="tool-pill" aria-hidden="true">Viva Engage</span><span class="tool-pill tool-pill-accent" aria-hidden="true">Sharepoint</span><span class="tool-pill" aria-hidden="true">Wordpress</span><span class="tool-pill" aria-hidden="true">Nano Banana</span><span class="tool-pill" aria-hidden="true">Microsoft Office</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ TESTIMONIALS ============================================================ -->
     <section class="stack-section section-ivory" id="testimonials">
-      <div class="section-label reveal">Kind Words</div>
+      <div class="section-header">
+        <span class="section-chapter">Kind Words</span>
+        <span class="section-rule"></span>
+      </div>
       <h2 class="section-title reveal">What People <em>Actually Say</em></h2>
       <div class="testimonials-grid">
         <div class="testimonial-card reveal"><div class="testimonial-bigquote">"</div><p class="testimonial-text">I had a pleasure to work with Garima  as part of the Human Rights Due Dilige team. Garima approached her work with curiosity and an openness to development, consistently showing interest in growing her skills and gaining new knowledge. She was supportive in day-to-day tasks, contributed to various communications and projects, and collaborated comfortably within an international team environment.</p><div class="testimonial-author"><div class="testimonial-avatar" style="background:var(--crimson)"><img src="images/testimonial-1.jpg" alt="" onerror="this.remove()" /></div><div><div class="testimonial-name">Elena Plotnikova, Human rights due diligence director</div><div class="testimonial-company">Danone · 2025</div></div></div></div>
@@ -491,37 +481,124 @@ No matter how tight the timeline or complex the brief, Garima always showed up r
       </div>
     </section>
 
-    <!-- ============================================================
-         CONTACT / FOOTER
-    ============================================================ -->
+    <!-- ============================================================ CONTACT / FOOTER — redesigned ============================================================ -->
     <footer class="stack-section footer-section" id="contact">
-      <div class="sticker sticker-footer"><img src="images/sticker-footer.png" alt="" class="sticker-img" /></div>
-      <h2 class="footer-heading reveal">Let's build something<br><em>great together.</em></h2>
-      <p class="footer-sub reveal">CDI/CDD · Paris region · Available from June 2026</p>
-      <div class="contact-links reveal">
-        <a href="mailto:garima.dhasmana04@gmail.com" class="contact-row"><span class="contact-icon">✉️</span> garima.dhasmana04@gmail.com</a>
-        <a href="tel:+33769417570" class="contact-row"><span class="contact-icon">📞</span> +33 7 69 41 75 70</a>
-        <a href="https://linkedin.com/in/garimadhasmana" target="_blank" class="contact-row"><span class="contact-icon contact-icon-linkedin"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></span> linkedin.com/in/garimadhasmana</a>
+      <div class="footer-glow" aria-hidden="true"></div>
+
+      <div class="footer-top">
+        <div class="footer-top-left">
+          <div class="section-header section-header-light">
+            <span class="section-chapter">Let's talk</span>
+            <span class="section-rule"></span>
+          </div>
+          <h2 class="footer-heading reveal">Let's build something<br><em>great together.</em></h2>
+          <p class="footer-sub reveal">CDI / CDD · Paris region · Available from June 2026</p>
+        </div>
+
+        <!-- puppy moved out of footer-top; see below --></div>
+
+      <!-- Puppy — sits directly above the contact band; drop a gif/webm in images/puppy.gif to swap the placeholder -->
+      <div class="puppy-slot" aria-hidden="true">
+        <img src="images/puppy.gif" alt="" class="puppy-media" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <div class="puppy-placeholder">
+          <div class="puppy-placeholder-label"> </div>
+          <small> </small>
+        </div>
       </div>
+
+
+      <div class="contact-grid">
+        <a href="mailto:garima.dhasmana04@gmail.com" class="contact-cell" data-magnetic>
+          <span class="contact-label">Email</span>
+          <span class="contact-value">garima.dhasmana04@gmail.com</span>
+        </a>
+        <a href="tel:+33769417570" class="contact-cell" data-magnetic>
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+33 7 69 41 75 70</span>
+        </a>
+        <a href="https://linkedin.com/in/garimadhasmana" target="_blank" class="contact-cell" data-magnetic>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">in/garimadhasmana</span>
+        </a>
+      </div>
+
       <div class="footer-ctas reveal">
-        <a href="GARIMA_DHASMANA_CV.pdf" class="btn-primary" download>⬇ Download CV</a>
-        <a href="https://calendly.com/garima-dhasmana04/30min" target="_blank" class="btn-ghost">📅 Book a Meeting</a>
+        <a href="GARIMA_DHASMANA_CV.pdf" class="btn-primary" download data-magnetic>⬇ Download CV</a>
+        <a href="https://calendly.com/garima-dhasmana04/30min" target="_blank" class="btn-ghost btn-ghost-light" data-magnetic>📅 Book a Meeting</a>
       </div>
-      <div class="footer-gif"><img src="images/footer-gif.gif" alt="" onerror="this.style.display='none'" /></div>
+
       <div class="footer-bottom">
         <div class="footer-logo">Garima <em>Dhasmana</em></div>
-        <div class="footer-copy">© 2025</div>
+        <div class="footer-copy">© 2026 · Paris, France</div>
       </div>
     </footer>
 
   </main>
 </div>
 
-<!-- Background music — low-volume ambient chill, loops. Replace audio/bg-music.mp3 with your track -->
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  <div class="lightbox-cap" id="lightboxCap"></div>
+</div>
+
+<!-- Background music -->
 <audio id="bgMusic" loop preload="auto">
   <source src="audio/bg-music.mp3" type="audio/mpeg" />
 </audio>
 <button id="musicToggle" class="music-toggle" aria-label="Toggle background music" title="Toggle background music">🔊</button>
+
+<!-- Tweaks panel -->
+<button id="tweaksToggle" class="tweaks-toggle" aria-label="Open tweaks panel" title="Tweaks">⚙</button>
+<aside class="tweaks-panel" id="tweaksPanel" aria-hidden="true">
+  <div class="tweaks-head">
+    <span class="tweaks-title">Tweaks</span>
+    <button class="tweaks-close" id="tweaksClose" aria-label="Close">×</button>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Accent</div>
+    <div class="tweak-swatches" data-tweak="accent">
+      <button class="tweak-swatch" data-value="#8B1A1A" style="background:#8B1A1A" aria-label="Crimson"></button>
+      <button class="tweak-swatch" data-value="#B84A1A" style="background:#B84A1A" aria-label="Burnt"></button>
+      <button class="tweak-swatch" data-value="#2F5D50" style="background:#2F5D50" aria-label="Forest"></button>
+      <button class="tweak-swatch" data-value="#1F3A5F" style="background:#1F3A5F" aria-label="Navy"></button>
+      <button class="tweak-swatch" data-value="#7A2C5E" style="background:#7A2C5E" aria-label="Plum"></button>
+    </div>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Background</div>
+    <div class="tweak-segmented" data-tweak="bg">
+      <button data-value="cream">Cream</button>
+      <button data-value="ivory">Ivory</button>
+      <button data-value="sand">Sand</button>
+    </div>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Custom cursor</div>
+    <label class="tweak-switch"><input type="checkbox" id="tweakCursor" checked><span></span></label>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Intro loader</div>
+    <label class="tweak-switch"><input type="checkbox" id="tweakLoader" checked><span></span></label>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Autoplay music</div>
+    <label class="tweak-switch"><input type="checkbox" id="tweakMusic"><span></span></label>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">Section stacking</div>
+    <label class="tweak-switch"><input type="checkbox" id="tweakStacking" checked><span></span></label>
+  </div>
+
+  <button class="tweak-reset" id="tweakReset">Reset to defaults</button>
+</aside>
 
 <script src="script.js"></script>
 </body>

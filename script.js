@@ -1,4 +1,113 @@
 /* ============================================================
+   TWEAKS PANEL
+============================================================ */
+(function initTweaks() {
+  const KEY = 'gd-tweaks-v1';
+  const defaults = { accent: '#8B1A1A', bg: 'cream', cursor: true, loader: true, music: false, stacking: true };
+  const load = () => { try { return { ...defaults, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) { return { ...defaults }; } };
+  const save = (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} };
+  let state = load();
+
+  const apply = () => {
+    document.documentElement.style.setProperty('--crimson', state.accent);
+    document.documentElement.style.setProperty('--crimson-d', shade(state.accent, -0.12));
+    document.body.dataset.bg = state.bg;
+    document.body.toggleAttribute('data-no-cursor', !state.cursor);
+    document.body.dataset.stacking = state.stacking ? 'on' : 'off';
+    if (!state.loader) { const l = document.getElementById('pageLoader'); if (l) { l.classList.add('done'); setTimeout(() => l.remove(), 200); } }
+    // Reflect controls
+    document.querySelectorAll('[data-tweak="accent"] .tweak-swatch').forEach(b => b.classList.toggle('active', b.dataset.value === state.accent));
+    document.querySelectorAll('[data-tweak="bg"] button').forEach(b => b.classList.toggle('active', b.dataset.value === state.bg));
+    const setChk = (id, v) => { const el = document.getElementById(id); if (el) el.checked = v; };
+    setChk('tweakCursor', state.cursor); setChk('tweakLoader', state.loader);
+    setChk('tweakMusic', state.music);   setChk('tweakStacking', state.stacking);
+  };
+
+  function shade(hex, amt) {
+    const h = hex.replace('#',''); const n = parseInt(h.length===3 ? h.split('').map(c=>c+c).join('') : h, 16);
+    let r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+    r = Math.max(0,Math.min(255, Math.round(r + 255*amt)));
+    g = Math.max(0,Math.min(255, Math.round(g + 255*amt)));
+    b = Math.max(0,Math.min(255, Math.round(b + 255*amt)));
+    return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  }
+
+  // Wire controls
+  const toggle = document.getElementById('tweaksToggle');
+  const panel  = document.getElementById('tweaksPanel');
+  const close  = document.getElementById('tweaksClose');
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => panel.classList.toggle('open'));
+    close.addEventListener('click', () => panel.classList.remove('open'));
+  }
+  document.querySelectorAll('[data-tweak="accent"] .tweak-swatch').forEach(b => {
+    b.addEventListener('click', () => { state.accent = b.dataset.value; save(state); apply(); });
+  });
+  document.querySelectorAll('[data-tweak="bg"] button').forEach(b => {
+    b.addEventListener('click', () => { state.bg = b.dataset.value; save(state); apply(); });
+  });
+  const wireCheck = (id, key, extra) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', () => { state[key] = el.checked; save(state); apply(); if (extra) extra(); });
+  };
+  wireCheck('tweakCursor', 'cursor');
+  wireCheck('tweakLoader', 'loader');
+  wireCheck('tweakMusic',  'music', () => {
+    const audio = document.getElementById('bgMusic');
+    if (!audio) return;
+    if (state.music) audio.play().catch(() => {}); else audio.pause();
+  });
+  wireCheck('tweakStacking', 'stacking');
+  const reset = document.getElementById('tweakReset');
+  if (reset) reset.addEventListener('click', () => { state = { ...defaults }; save(state); apply(); });
+
+  apply();
+})();
+
+
+/* ============================================================
+   RAMEN IFRAME AUTO-HEIGHT — sync to its content so nothing is cropped
+============================================================ */
+(function initRamenAutoHeight() {
+  const iframe = document.querySelector('.ramen-frame');
+  if (!iframe) return;
+  const sync = () => {
+    try {
+      const doc = iframe.contentDocument;
+      if (!doc || !doc.body) return;
+      const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+      if (h > 200) iframe.style.height = h + 'px';
+    } catch (e) {}
+  };
+  iframe.addEventListener('load', () => {
+    sync();
+    // Re-measure a few times as fonts/images/react content resolves
+    [80, 260, 700, 1400, 2600].forEach(ms => setTimeout(sync, ms));
+    try {
+      const ro = new ResizeObserver(sync);
+      ro.observe(iframe.contentDocument.body);
+      iframe.contentWindow.addEventListener('resize', sync);
+    } catch (e) {}
+  });
+  window.addEventListener('resize', sync);
+})();
+
+
+/* ============================================================
+   PAGE LOADER — fade out after ~1.4s
+============================================================ */
+(function initLoader() {
+  const el = document.getElementById('pageLoader');
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dur = reduce ? 250 : 1500;
+  setTimeout(() => { el.classList.add('done'); }, dur);
+  setTimeout(() => { el.remove(); }, dur + 900);
+})();
+
+
+/* ============================================================
    PARTICLE CANVAS FACTORY
 ============================================================ */
 function initParticleCanvas(canvasId, opts) {
@@ -96,8 +205,19 @@ initParticleCanvas('sidebarCanvas', {
 
   function onScroll() {
     if (isMobile()) return;
+    if (document.body.dataset.stacking === 'off') {
+      sections.forEach(s => { s.style.transform = ''; s.style.opacity = ''; s.style.borderRadius = ''; });
+      return;
+    }
 
     sections.forEach((section, i) => {
+      // Skills and Creative opt out of the sticky stack so users can scroll fully through their content
+      if (section.id === 'skills' || section.id === 'creative') {
+        section.style.transform     = '';
+        section.style.opacity       = '';
+        section.style.borderRadius  = '';
+        return;
+      }
       const rect = section.getBoundingClientRect();
       const contentEl = document.getElementById('mainContent');
       const contentLeft = contentEl ? contentEl.getBoundingClientRect().left : 0;
@@ -330,4 +450,153 @@ initParticleCanvas('sidebarCanvas', {
     if (audio.paused) { userPaused = false; audio.play().then(updateIcon).catch(() => {}); }
     else { userPaused = true; audio.pause(); updateIcon(); }
   });
+})();
+
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+(function initCursor() {
+  const ring = document.getElementById('cursorRing');
+  const dot  = document.getElementById('cursorDot');
+  if (!ring || !dot) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  let rx = mx, ry = my;
+  let shown = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+    if (!shown) { shown = true; ring.style.opacity = '1'; dot.style.opacity = '1'; }
+
+    // Detect dark section under cursor for cursor colour
+    const el = document.elementFromPoint(mx, my);
+    const darkSection = el && el.closest('.section-dark, .footer-section, .lightbox');
+    ring.classList.toggle('on-dark', !!darkSection);
+    dot.classList.toggle('on-dark', !!darkSection);
+  }, { passive: true });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const grow = () => ring.classList.add('is-hover');
+  const shrink = () => ring.classList.remove('is-hover');
+  document.querySelectorAll('a, button, .polaroid-card, .exp-tab, .creative-thumb, .lang-pill, .snav-link, .metric').forEach(el => {
+    el.addEventListener('mouseenter', grow);
+    el.addEventListener('mouseleave', shrink);
+  });
+})();
+
+
+/* ============================================================
+   MAGNETIC BUTTONS
+============================================================ */
+(function initMagnetic() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  document.querySelectorAll('[data-magnetic]').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * 0.24;
+      const y = (e.clientY - r.top  - r.height / 2) * 0.3;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+})();
+
+
+/* ============================================================
+   NUMBER COUNTERS (hero stats + work-ex metrics)
+   Elements: [data-count-to]
+============================================================ */
+(function initCounters() {
+  const nodes = document.querySelectorAll('[data-count-to]');
+  if (!nodes.length) return;
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  const run = (el) => {
+    if (el._counted) return;
+    el._counted = true;
+    const target = parseFloat(el.dataset.countTo) || 0;
+    const pre = el.dataset.prefix || '';
+    const suf = el.dataset.suffix || '';
+    const dur = 1400;
+    const t0  = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const v = Math.round(target * easeOut(p));
+      el.textContent = pre + v.toLocaleString('en-US') + suf;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.35 });
+  nodes.forEach(n => io.observe(n));
+
+  // Re-run counters inside a work-ex panel when its tab is opened
+  window.__replayCounters = (root) => {
+    if (!root) return;
+    root.querySelectorAll('[data-count-to]').forEach(el => {
+      el._counted = false;
+      el.textContent = '0';
+      run(el);
+    });
+  };
+})();
+
+
+/* ============================================================
+   TAB RE-COUNT — extend the original tabs to replay counters
+============================================================ */
+document.querySelectorAll('.exp-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const id = 'panel-' + tab.dataset.tab;
+    const panel = document.getElementById(id);
+    if (panel && window.__replayCounters) window.__replayCounters(panel);
+  });
+});
+
+
+/* ============================================================
+   LIGHTBOX for AI creatives (any [data-lightbox])
+============================================================ */
+(function initLightbox() {
+  const lb    = document.getElementById('lightbox');
+  const img   = document.getElementById('lightboxImg');
+  const cap   = document.getElementById('lightboxCap');
+  const close = document.getElementById('lightboxClose');
+  if (!lb || !img) return;
+
+  const open = (src, caption) => {
+    img.src = src;
+    img.alt = caption || '';
+    cap.textContent = caption || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeLb = () => {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  document.querySelectorAll('[data-lightbox]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      open(el.dataset.lightbox, el.dataset.caption || el.querySelector('img')?.alt || '');
+    });
+  });
+  close.addEventListener('click', closeLb);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
 })();
