@@ -164,12 +164,13 @@ class Component extends DCLogic {
     const inside = ((dx*dx)/(rrx*rrx) + (bodyDy*bodyDy)/((bowl.r*0.9)*(bowl.r*0.9))) < 1.2;
     if (inside && !this.state.placed[d.id]) {
       const ing = this.ingredients.find(i => i.id === d.id);
-      this.setState({ placed: { ...this.state.placed, [d.id]: true }, dragging: null, popup: ing });
-      if (this.popupTimer) clearTimeout(this.popupTimer);
-      this.popupTimer = setTimeout(() => this.setState({ popup: null }), 5000);
-      this.playSound(ing.type === 'top' ? 'pop' : 'splash');
-      this.burstSparkles(d.x, d.y);
-      if (Object.keys(this.state.placed).length + 1 === 9) {
+    const newPlaced = { ...this.state.placed, [d.id]: true };
+    this.setState({ placed: newPlaced, dragging: null, popup: ing });
+    if (this.popupTimer) clearTimeout(this.popupTimer);
+    this.popupTimer = setTimeout(() => this.setState({ popup: null }), 5000);
+    this.playSound(ing.type === 'top' ? 'pop' : 'splash');
+    this.burstSparkles(d.x, d.y);
+    if (Object.keys(newPlaced).length === this.ingredients.length) {
         setTimeout(() => {
           const s2 = this.stageRef.current.getBoundingClientRect();
           const b2 = this.getBowlGeom(s2.width, s2.height, true);
