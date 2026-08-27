@@ -211,8 +211,8 @@ initParticleCanvas('sidebarCanvas', {
     }
 
     sections.forEach((section, i) => {
-      // Skills and Creative opt out of the sticky stack so users can scroll fully through their content
-      if (section.id === 'skills' || section.id === 'creative') {
+      // Skills is opted out of the sticky stack so users can scroll fully through the iframe + tools strip
+      if (section.id === 'skills') {
         section.style.transform     = '';
         section.style.opacity       = '';
         section.style.borderRadius  = '';
@@ -573,13 +573,27 @@ document.querySelectorAll('.exp-tab').forEach(tab => {
 (function initLightbox() {
   const lb    = document.getElementById('lightbox');
   const img   = document.getElementById('lightboxImg');
+  const vid   = document.getElementById('lightboxVideo');
   const cap   = document.getElementById('lightboxCap');
   const close = document.getElementById('lightboxClose');
   if (!lb || !img) return;
 
-  const open = (src, caption) => {
-    img.src = src;
-    img.alt = caption || '';
+  const isVideoSrc = (el, src) =>
+    el.dataset.lightboxType === 'video' || /\.(mp4|webm|mov)(\?.*)?$/i.test(src || '');
+
+  const open = (src, caption, asVideo) => {
+    if (asVideo && vid) {
+      img.style.display = 'none';
+      vid.style.display = 'block';
+      vid.src = src;
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    } else {
+      if (vid) { vid.pause(); vid.removeAttribute('src'); vid.load(); vid.style.display = 'none'; }
+      img.style.display = 'block';
+      img.src = src;
+      img.alt = caption || '';
+    }
     cap.textContent = caption || '';
     lb.classList.add('open');
     lb.setAttribute('aria-hidden', 'false');
@@ -589,11 +603,13 @@ document.querySelectorAll('.exp-tab').forEach(tab => {
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (vid) { vid.pause(); }
   };
   document.querySelectorAll('[data-lightbox]').forEach(el => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
-      open(el.dataset.lightbox, el.dataset.caption || el.querySelector('img')?.alt || '');
+      const src = el.dataset.lightbox;
+      open(src, el.dataset.caption || el.querySelector('img')?.alt || '', isVideoSrc(el, src));
     });
   });
   close.addEventListener('click', closeLb);

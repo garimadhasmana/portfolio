@@ -63,6 +63,9 @@
     .gallery-hero p {
       font-size: .95rem; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 480px;
     }
+    .gallery-hero-hint {
+      color: var(--crimson); font-weight: 600;
+    }
 
     /* Campaign block */
     .campaign {
@@ -88,6 +91,7 @@
     .campaign-item {
       aspect-ratio: 4/5; border-radius: 8px; overflow: hidden;
       background: rgba(255,255,255,.04); position: relative; cursor: pointer;
+      outline: none;
     }
     .campaign-item img,
     .campaign-item video {
@@ -96,14 +100,21 @@
     }
     .campaign-item:hover img,
     .campaign-item:hover video { transform: scale(1.06); }
-    .campaign-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,0,0,.75) 0%, transparent 55%);
-      opacity: 0; transition: opacity var(--transition);
-      display: flex; align-items: flex-end; padding: 1rem;
+
+    /* Copy reveals BELOW the visual on hover — never over it */
+    .campaign-visual { display: flex; flex-direction: column; }
+    .campaign-caption {
+      max-height: 0; opacity: 0; overflow: hidden;
+      margin-top: 0;
+      transition: max-height .45s cubic-bezier(.16,1,.3,1), opacity .35s ease .05s, margin-top .45s cubic-bezier(.16,1,.3,1);
+      font-family: var(--font-display); font-style: italic; font-size: .8rem;
+      letter-spacing: .01em; line-height: 1.5; color: rgba(255,255,255,.55);
+      text-align: center; padding: 0 .25rem;
     }
-    .campaign-item:hover .campaign-overlay { opacity: 1; }
-    .campaign-overlay span { font-size: .75rem; font-weight: 600; color: var(--white); }
+    .campaign-visual:hover .campaign-caption,
+    .campaign-visual:focus-within .campaign-caption {
+      max-height: 5rem; opacity: 1; margin-top: .85rem;
+    }
 
     /* Placeholder tile */
     .campaign-placeholder {
@@ -123,8 +134,11 @@
       aspect-ratio: unset; height: 360px; border-radius: 8px; overflow: hidden;
       background: rgba(255,255,255,.04); position: relative; cursor: pointer;
     }
-    .campaign-item-169 { aspect-ratio: 16/9; flex: 1 1 480px; min-width: 320px; }
-    .campaign-item-916 { aspect-ratio: 9/16; flex: 0 0 auto; width: auto; }
+    .campaign-item-169 { aspect-ratio: 16/9; }
+    .campaign-item-916 { aspect-ratio: 9/16; }
+    .campaign-visual-169 { flex: 1 1 480px; min-width: 320px; }
+    .campaign-visual-916 { flex: 0 0 auto; width: auto; }
+    .campaign-grid-duo .campaign-visual .campaign-item { width: 100%; }
 
     @media (max-width: 768px) {
       .campaign-grid-duo { flex-direction: column; }
@@ -138,6 +152,11 @@
       .gallery-main { margin-left: 0; }
       .gallery-hero, .campaign { padding: 2.5rem 1.5rem; }
       .campaign-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ---- Touch devices: no hover, so keep copy legible without it ---- */
+    @media (hover: none) {
+      .campaign-caption { max-height: 5rem; opacity: 1; margin-top: .85rem; }
     }
   </style>
 </head>
@@ -165,7 +184,8 @@
       <h1>Visuals that<br><em>didn't exist</em><br>until I made them.</h1>
       <p>
         Built using Google Nano Banana, Omni, Claude, and the Adobe Creative Suite.
-        Concepts, campaigns, and collabs. Imagined into reality.
+        Concepts, campaigns, and collabs. Imagined into reality.<br>
+        <span class="gallery-hero-hint">Hover on visual for copy</span>
       </p>
     </div>
 
@@ -176,21 +196,26 @@
         <div class="campaign-title">KFC <em>AI Ad Creatives</em></div>
       </div>
       <div class="campaign-grid">
-        <div class="campaign-item">
-          <img src="images/ai-kfc-1.jpg" alt="KFC Creative 1"
-            onerror="this.classList.add('campaign-placeholder');this.outerHTML='<div class=\'campaign-item campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 01<br>Upload image here</span></div>'" />
-          <div class="campaign-overlay"><span>KFC — Visual 01</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-kfc-1.jpg" data-caption="Serving looks. And, technically, chicken.">
+            <img src="images/ai-kfc-1.jpg" alt="KFC Creative 1"
+              onerror="this.classList.add('campaign-placeholder');this.outerHTML='<div class=\'campaign-item campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 01<br>Upload image here</span></div>'" />
+          </div>
+          <div class="campaign-caption"><span>Serving looks. And, technically, chicken.</span></div>
         </div>
-        <div class="campaign-item">
-          <video src="images/ai-kfc-2.mp4" autoplay muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 02<br>Upload video here</span></div>'"></video>
-          <!-- <img src="images/ai-kfc-2.jpg" alt="KFC Creative 2" /> -->
-          <div class="campaign-overlay"><span>KFC — Visual 02</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-kfc-2.mp4" data-lightbox-type="video" data-caption="Tradition, reimagined with a modern appetite.">
+            <video src="images/ai-kfc-2.mp4" autoplay muted loop playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 02<br>Upload video here</span></div>'"></video>
+          </div>
+          <div class="campaign-caption"><span>Tradition, reimagined with a modern appetite.</span></div>
         </div>
-        <div class="campaign-item">
-          <img src="images/ai-kfc-3.jpg" alt="KFC Creative 3"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 03<br>Upload image here</span></div>'" />
-          <div class="campaign-overlay"><span>KFC — Visual 03</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-kfc-3.jpg" data-caption="Spice levels: campaign-worthy">
+            <img src="images/ai-kfc-3.jpg" alt="KFC Creative 3"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🍗</div><span>KFC Creative 03<br>Upload image here</span></div>'" />
+          </div>
+          <div class="campaign-caption"><span>Spice levels: campaign-worthy</span></div>
         </div>
       </div>
     </div>
@@ -202,23 +227,29 @@
         <div class="campaign-title">Evian <em>× Swarovski</em></div>
       </div>
       <div class="campaign-grid">
-        <div class="campaign-item">
-          <img src="images/ai-evian-1.jpg" alt="Evian x Swarovski 1"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 01<br>Upload image here</span></div>'" />
-          <!-- <video src="images/ai-evian-1.mp4" autoplay muted loop playsinline></video> -->
-          <div class="campaign-overlay"><span>Evian × Swarovski — 01</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-evian-1.jpg" data-caption="Hydration, but make it haute.">
+            <img src="images/ai-evian-1.jpg" alt="Evian x Swarovski 1"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 01<br>Upload image here</span></div>'" />
+            <!-- <video src="images/ai-evian-1.mp4" autoplay muted loop playsinline></video> -->
+          </div>
+          <div class="campaign-caption"><span>Hydration, but make it haute.</span></div>
         </div>
-        <div class="campaign-item">
-          <video src="images/ai-evian-2.mp4" autoplay muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 02<br>Upload video here</span></div>'"></video>
-          <!-- <img src="images/ai-evian-2.jpg" alt="Evian x Swarovski 2" /> -->
-          <div class="campaign-overlay"><span>Evian × Swarovski — 02</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-evian-2.mp4" data-lightbox-type="video" data-caption="The art of making the ordinary feel extraordinary.">
+            <video src="images/ai-evian-2.mp4" autoplay muted loop playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 02<br>Upload video here</span></div>'"></video>
+            <!-- <img src="images/ai-evian-2.jpg" alt="Evian x Swarovski 2" /> -->
+          </div>
+          <div class="campaign-caption"><span>The art of making the ordinary feel extraordinary.</span></div>
         </div>
-        <div class="campaign-item">
-          <img src="images/ai-evian-3.jpg" alt="Evian x Swarovski 3"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 03<br>Upload image here</span></div>'" />
-          <!-- <video src="images/ai-evian-3.mp4" autoplay muted loop playsinline></video> -->
-          <div class="campaign-overlay"><span>Evian × Swarovski — 03</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-evian-3.jpg" data-caption="Water got a glow-up.">
+            <img src="images/ai-evian-3.jpg" alt="Evian x Swarovski 3"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>💎</div><span>Evian × Swarovski 03<br>Upload image here</span></div>'" />
+            <!-- <video src="images/ai-evian-3.mp4" autoplay muted loop playsinline></video> -->
+          </div>
+          <div class="campaign-caption"><span>Water got a glow-up.</span></div>
         </div>
       </div>
     </div>
@@ -230,25 +261,31 @@
         <div class="campaign-title">Jacquemus <em>× Dyson</em></div>
       </div>
       <div class="campaign-grid">
-        <div class="campaign-item">
-          <img src="images/ai-jacquemus-1.jpg" alt="Jacquemus x Dyson 1"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 01<br>Upload image here</span></div>'" />
-          <!-- To use a video instead, delete the <img> line above and un-comment this:
-          <video src="images/ai-jacquemus-1.mp4" autoplay muted loop playsinline></video>
-          -->
-          <div class="campaign-overlay"><span>Jacquemus × Dyson — 01</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-jacquemus-1.jpg" data-caption="When household appliances start having better aesthetics than you.">
+            <img src="images/ai-jacquemus-1.jpg" alt="Jacquemus x Dyson 1"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 01<br>Upload image here</span></div>'" />
+            <!-- To use a video instead, delete the <img> line above and un-comment this:
+            <video src="images/ai-jacquemus-1.mp4" autoplay muted loop playsinline></video>
+            -->
+          </div>
+          <div class="campaign-caption"><span>When household appliances start having better aesthetics than you.</span></div>
         </div>
-        <div class="campaign-item">
-          <video src="images/ai-jacquemus-2.mp4" autoplay muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 02<br>Upload video here</span></div>'"></video>
-          <!-- <img src="images/ai-jacquemus-2.jpg" alt="Jacquemus x Dyson 2" /> -->
-          <div class="campaign-overlay"><span>Jacquemus × Dyson — 02</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-jacquemus-2.mp4" data-lightbox-type="video" data-caption="Where innovation becomes an object of desire.">
+            <video src="images/ai-jacquemus-2.mp4" autoplay muted loop playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 02<br>Upload video here</span></div>'"></video>
+            <!-- <img src="images/ai-jacquemus-2.jpg" alt="Jacquemus x Dyson 2" /> -->
+          </div>
+          <div class="campaign-caption"><span>Where innovation becomes an object of desire.</span></div>
         </div>
-        <div class="campaign-item">
-          <img src="images/ai-jacquemus-3.jpg" alt="Jacquemus x Dyson 3"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 03<br>Upload image here</span></div>'" />
-          <!-- <video src="images/ai-jacquemus-3.mp4" autoplay muted loop playsinline></video> -->
-          <div class="campaign-overlay"><span>Jacquemus × Dyson — 03</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-jacquemus-3.jpg" data-caption="Engineering that refuses to be boring">
+            <img src="images/ai-jacquemus-3.jpg" alt="Jacquemus x Dyson 3"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🌸</div><span>Jacquemus × Dyson 03<br>Upload image here</span></div>'" />
+            <!-- <video src="images/ai-jacquemus-3.mp4" autoplay muted loop playsinline></video> -->
+          </div>
+          <div class="campaign-caption"><span>Engineering that refuses to be boring</span></div>
         </div>
       </div>
     </div>
@@ -260,23 +297,29 @@
         <div class="campaign-title">Lego <em>× AirBnB</em></div>
       </div>
       <div class="campaign-grid">
-        <div class="campaign-item">
-          <img src="images/ai-lego-1.jpg" alt="Lego x AirBnB 1"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 01<br>Upload image here</span></div>'" />
-          <!-- <video src="images/ai-lego-1.mp4" autoplay muted loop playsinline></video> -->
-          <div class="campaign-overlay"><span>Lego × AirBnB — 01</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-lego-1.jpg" data-caption="A hotel could never tell this story.">
+            <img src="images/ai-lego-1.jpg" alt="Lego x AirBnB 1"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 01<br>Upload image here</span></div>'" />
+            <!-- <video src="images/ai-lego-1.mp4" autoplay muted loop playsinline></video> -->
+          </div>
+          <div class="campaign-caption"><span>A hotel could never tell this story.</span></div>
         </div>
-        <div class="campaign-item">
-          <video src="images/ai-lego-2.mp4" autoplay muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 02<br>Upload video here</span></div>'"></video>
-          <!-- <img src="images/ai-lego-2.jpg" alt="Lego x AirBnB 2" /> -->
-          <div class="campaign-overlay"><span>Lego × AirBnB — 02</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-lego-2.mp4" data-lightbox-type="video" data-caption="Turning destinations into experiences worth remembering.">
+            <video src="images/ai-lego-2.mp4" autoplay muted loop playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 02<br>Upload video here</span></div>'"></video>
+            <!-- <img src="images/ai-lego-2.jpg" alt="Lego x AirBnB 2" /> -->
+          </div>
+          <div class="campaign-caption"><span>Turning destinations into experiences worth remembering.</span></div>
         </div>
-        <div class="campaign-item">
-          <img src="images/ai-lego-3.jpg" alt="Lego x AirBnB 3"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 03<br>Upload image here</span></div>'" />
-          <!-- <video src="images/ai-lego-3.mp4" autoplay muted loop playsinline></video> -->
-          <div class="campaign-overlay"><span>Lego × AirBnB — 03</span></div>
+        <div class="campaign-visual">
+          <div class="campaign-item" data-lightbox="images/ai-lego-3.jpg" data-caption="The best stories rarely come with a check-in desk.">
+            <img src="images/ai-lego-3.jpg" alt="Lego x AirBnB 3"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🧱</div><span>Lego × AirBnB 03<br>Upload image here</span></div>'" />
+            <!-- <video src="images/ai-lego-3.mp4" autoplay muted loop playsinline></video> -->
+          </div>
+          <div class="campaign-caption"><span>The best stories rarely come with a check-in desk.</span></div>
         </div>
       </div>
     </div>
@@ -288,21 +331,34 @@
         <div class="campaign-title">Laneige <em>× Haribo</em></div>
       </div>
       <div class="campaign-grid campaign-grid-duo">
-        <div class="campaign-item campaign-item-169">
-          <video src="images/ai-laneige-1.mp4" autoplay muted loop playsinline
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — video<br>16:9 — Upload video here</span></div>'"></video>
-          <div class="campaign-overlay"><span>Laneige × Haribo — 01</span></div>
+        <div class="campaign-visual campaign-visual-169">
+          <div class="campaign-item campaign-item-169" data-lightbox="images/ai-laneige-1.mp4" data-lightbox-type="video" data-caption="Childhood nostalgia, recast in a language of colour and culture.">
+            <video src="images/ai-laneige-1.mp4" autoplay muted loop playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — video<br>16:9 — Upload video here</span></div>'"></video>
+          </div>
+          <div class="campaign-caption"><span>Childhood nostalgia, recast in a language of colour and culture.</span></div>
         </div>
-        <div class="campaign-item campaign-item-916">
-          <img src="images/ai-laneige-2.jpg" alt="Laneige x Haribo 2"
-            onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — image<br>9:16 — Upload image here</span></div>'" />
-          <div class="campaign-overlay"><span>Laneige × Haribo — 02</span></div>
+        <div class="campaign-visual campaign-visual-916">
+          <div class="campaign-item campaign-item-916" data-lightbox="images/ai-laneige-2.jpg" data-caption="For when your inner child gets the credit card.">
+            <img src="images/ai-laneige-2.jpg" alt="Laneige x Haribo 2"
+              onerror="this.parentElement.innerHTML='<div class=\'campaign-placeholder\'><div class=\'campaign-placeholder-icon\'>🐻</div><span>Laneige × Haribo — image<br>9:16 — Upload image here</span></div>'" />
+          </div>
+          <div class="campaign-caption"><span>For when your inner child gets the credit card.</span></div>
         </div>
       </div>
     </div>
 
   </main>
 </div>
+
+<!-- Lightbox: opens the clicked image or video at full size -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  <video class="lightbox-video" id="lightboxVideo" style="display:none" controls muted loop playsinline></video>
+  <div class="lightbox-cap" id="lightboxCap"></div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
