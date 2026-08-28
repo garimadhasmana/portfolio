@@ -45,7 +45,7 @@
 
     <h1 style="margin:0 0 8px; font-family:'Archivo Black', sans-serif; font-size: clamp(56px, 8vw, 112px); line-height:0.92; letter-spacing:-0.02em; color:#3a1a12; text-transform:uppercase;">
       Marketing, but make it
-      <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:500; text-transform:none; color:#c64a34; letter-spacing:-0.01em;">umami</span>
+      <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:500; text-transform:none; color:#c64a34; letter-spacing:-0.01em;">y-umami</span>
     </h1>
 
     <p style="margin: 4px 0 40px; max-width:820px; font-size:22px; line-height:1.5; color:#5a2e22; opacity:0.9;">
@@ -55,7 +55,7 @@
     <div style="display:flex; gap:14px; align-items:center; margin-bottom:24px; flex-wrap:wrap; position:relative; z-index:5;">
       <div style="display:flex; gap:8px;">{{ dots }}</div>
       <div style="font-family:'Fredoka'; font-weight:500; font-size:14px; color:#5a2e22;">{{ countNum }} of 9 in the bowl</div>
-      <button onClick="{{ reset }}" style="margin-left:auto; border:1.5px solid #3a1a12; background:transparent; color:#3a1a12; font-family:'Fredoka'; font-weight:500; font-size:13px; letter-spacing:0.08em; padding:10px 18px; border-radius:999px; cursor:pointer; text-transform:uppercase;">Start over</button>
+      <button onClick="{{ reset }}" style="margin-left:auto; border:1.5px solid #3a1a12; background:#fff4e0; color:#3a1a12; font-family:'Fredoka'; font-weight:500; font-size:13px; letter-spacing:0.08em; padding:10px 18px; border-radius:999px; cursor:pointer; text-transform:uppercase; box-shadow:0 4px 14px rgba(20,10,6,0.18);">Start over</button>
     </div>
 
     <div style="{{ stageStyle }}">{{ stageChildren }}{{ popup }}</div>
@@ -164,13 +164,12 @@ class Component extends DCLogic {
     const inside = ((dx*dx)/(rrx*rrx) + (bodyDy*bodyDy)/((bowl.r*0.9)*(bowl.r*0.9))) < 1.2;
     if (inside && !this.state.placed[d.id]) {
       const ing = this.ingredients.find(i => i.id === d.id);
-    const newPlaced = { ...this.state.placed, [d.id]: true };
-    this.setState({ placed: newPlaced, dragging: null, popup: ing });
-    if (this.popupTimer) clearTimeout(this.popupTimer);
-    this.popupTimer = setTimeout(() => this.setState({ popup: null }), 5000);
-    this.playSound(ing.type === 'top' ? 'pop' : 'splash');
-    this.burstSparkles(d.x, d.y);
-    if (Object.keys(newPlaced).length === this.ingredients.length) {
+      this.setState({ placed: { ...this.state.placed, [d.id]: true }, dragging: null, popup: ing });
+      if (this.popupTimer) clearTimeout(this.popupTimer);
+      this.popupTimer = setTimeout(() => this.setState({ popup: null }), 5000);
+      this.playSound(ing.type === 'top' ? 'pop' : 'splash');
+      this.burstSparkles(d.x, d.y);
+      if (Object.keys(this.state.placed).length + 1 === 9) {
         setTimeout(() => {
           const s2 = this.stageRef.current.getBoundingClientRect();
           const b2 = this.getBowlGeom(s2.width, s2.height, true);

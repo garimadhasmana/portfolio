@@ -3,7 +3,7 @@
 ============================================================ */
 (function initTweaks() {
   const KEY = 'gd-tweaks-v1';
-  const defaults = { accent: '#8B1A1A', bg: 'cream', cursor: true, loader: true, music: false, stacking: true };
+  const defaults = { accent: '#8B1A1A', bg: 'cream', cursor: true, loader: true, music: false };
   const load = () => { try { return { ...defaults, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) { return { ...defaults }; } };
   const save = (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} };
   let state = load();
@@ -13,14 +13,13 @@
     document.documentElement.style.setProperty('--crimson-d', shade(state.accent, -0.12));
     document.body.dataset.bg = state.bg;
     document.body.toggleAttribute('data-no-cursor', !state.cursor);
-    document.body.dataset.stacking = state.stacking ? 'on' : 'off';
     if (!state.loader) { const l = document.getElementById('pageLoader'); if (l) { l.classList.add('done'); setTimeout(() => l.remove(), 200); } }
     // Reflect controls
     document.querySelectorAll('[data-tweak="accent"] .tweak-swatch').forEach(b => b.classList.toggle('active', b.dataset.value === state.accent));
     document.querySelectorAll('[data-tweak="bg"] button').forEach(b => b.classList.toggle('active', b.dataset.value === state.bg));
     const setChk = (id, v) => { const el = document.getElementById(id); if (el) el.checked = v; };
     setChk('tweakCursor', state.cursor); setChk('tweakLoader', state.loader);
-    setChk('tweakMusic', state.music);   setChk('tweakStacking', state.stacking);
+    setChk('tweakMusic', state.music);
   };
 
   function shade(hex, amt) {
@@ -58,7 +57,6 @@
     if (!audio) return;
     if (state.music) audio.play().catch(() => {}); else audio.pause();
   });
-  wireCheck('tweakStacking', 'stacking');
   const reset = document.getElementById('tweakReset');
   if (reset) reset.addEventListener('click', () => { state = { ...defaults }; save(state); apply(); });
 
@@ -80,6 +78,15 @@
       if (h > 200) iframe.style.height = h + 'px';
     } catch (e) {}
   };
+  // Debounced re-sync — used after anything that changes the iframe's own
+  // rendered size (browser zoom, window resize), so we wait a beat for the
+  // iframe's internal content to finish reflowing at its new width before
+  // re-measuring, rather than reading a stale height mid-reflow.
+  let debounceTimer;
+  const debouncedSync = () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(sync, 60);
+  };
   iframe.addEventListener('load', () => {
     sync();
     // Re-measure a few times as fonts/images/react content resolves
@@ -90,7 +97,16 @@
       iframe.contentWindow.addEventListener('resize', sync);
     } catch (e) {}
   });
-  window.addEventListener('resize', sync);
+  // Browser zoom (and plain window resize) changes how much width the
+  // iframe itself gets from the surrounding layout, which reflows its
+  // internal content to a different height — watching the iframe ELEMENT
+  // directly (from the parent side) catches that reliably at any zoom
+  // level, not just once at initial load.
+  try {
+    const outerRO = new ResizeObserver(debouncedSync);
+    outerRO.observe(iframe);
+  } catch (e) {}
+  window.addEventListener('resize', debouncedSync);
 })();
 
 
@@ -188,69 +204,15 @@ initParticleCanvas('sidebarCanvas', {
 
 
 /* ============================================================
-   STACKING SECTIONS
-   The scroll container is the main content div.
-   Each .stack-section is position:sticky top:0 with increasing z-index,
-   so each new section slides over and covers the previous one as you scroll.
-
-   We also add a subtle scale-down to the section being covered
-   to enhance the "card stack" feel.
+   SECTION FADE-IN
+   Stacking sections were removed in favor of a simpler, more
+   predictable pattern: sections sit in normal document flow and
+   softly fade/slide in as they're scrolled into view. This reuses
+   the same .reveal mechanism as individual elements (see
+   ELEMENT-LEVEL REVEAL below) — each <section class="stack-section
+   reveal"> is observed independently, so it just needs the "reveal"
+   class added in the HTML. No extra JS required here.
 ============================================================ */
-(function initStackingSections() {
-  const sections = Array.from(document.querySelectorAll('.stack-section'));
-  if (!sections.length) return;
-
-  // On mobile, sticky stacking is disabled in CSS, so skip the JS too
-  const isMobile = () => window.innerWidth <= 768;
-
-  function onScroll() {
-    if (isMobile()) return;
-    if (document.body.dataset.stacking === 'off') {
-      sections.forEach(s => { s.style.transform = ''; s.style.opacity = ''; s.style.borderRadius = ''; });
-      return;
-    }
-
-    sections.forEach((section, i) => {
-      // Skills is opted out of the sticky stack so users can scroll fully through the iframe + tools strip
-      if (section.id === 'skills') {
-        section.style.transform     = '';
-        section.style.opacity       = '';
-        section.style.borderRadius  = '';
-        return;
-      }
-      const rect = section.getBoundingClientRect();
-      const contentEl = document.getElementById('mainContent');
-      const contentLeft = contentEl ? contentEl.getBoundingClientRect().left : 0;
-
-      // How far has this section been "scrolled past"?
-      // When rect.top < 0, the section is being covered by the next one
-      const scrolledPast = Math.max(0, -rect.top);
-      const sectionH     = rect.height;
-      const progress     = Math.min(1, scrolledPast / sectionH);
-
-      // Scale down sections as they get covered — subtle parallax stack feel
-      // Only apply to sections that are being scrolled past (not the last one)
-      if (i < sections.length - 1) {
-        const scale   = 1 - progress * 0.04; // shrink to 96% max
-        const opacity = 1 - progress * 0.15; // fade to 85% max
-        const borderR = progress * 20;       // round corners as it scales
-
-        section.style.transform     = `scale(${scale})`;
-        section.style.opacity       = Math.max(0.85, opacity);
-        section.style.borderRadius  = `${borderR}px`;
-        section.style.transformOrigin = 'top center';
-      }
-    });
-  }
-
-  // Attach to the scrollable content area
-  const contentEl = document.getElementById('mainContent');
-  if (contentEl) {
-    contentEl.addEventListener('scroll', onScroll, { passive: true });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
 
 
 /* ============================================================
